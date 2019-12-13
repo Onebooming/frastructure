@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onebooming.frastructure.dao.PhysicServerDao">
+
+    <sql id="BASE_TABLE">
+      t_physicservers
+    </sql>
+
+    <!-- 用户表 -->
+    <sql id="TABLE_USER">
+        <include refid="com.onebooming.frastructure.dao.UserDao.BASE_TABLE"/>
+    </sql>
+
+    <!-- 文章的基本列 -->
+    <sql id="BASE_COLUMN">
+        id,name,area,datacenter,position,height,brand,type,
+        serialnumber,bIp,mgmtIp,cpuname,cpunum,memorysum,storage,
+        manufactor,department,user,maintainor
+    </sql>
+
+    <!-- 关联查询的用户表需要的字段 -->
+    <sql id="REL_USER_COLUMN">
+        u.username,
+    </sql>
+
+    <!-- 添加服务器 -->
+    <insert id="addPhysicServer" parameterType="com.onebooming.frastructure.model.PhysicServerEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,area,datacenter,position,height,brand,type,
+            serialnumber,bIp,mgmtIp,cpuname,cpunum,memorysum,storage,
+            manufactor,department,user,maintainor
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{name, jdbcType=VARCHAR}, #{area, jdbcType=VARCHAR}, #{datacenter, jdbcType=VARCHAR}, #{position, jdbcType=VARCHAR}, #{height, jdbcType=VARCHAR},#{brand, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR},
+            #{serialnumber, jdbcType=VARCHAR}, #{bIp, jdbcType=VARCHAR}, #{mgmtIp, jdbcType=VARCHAR},
+            #{cpuname, jdbcType=VARCHAR}, #{cpunum, jdbcType=INTEGER}, #{memorysum, jdbcType=INTEGER},
+            #{storage, jdbcType=INTEGER}, #{manufactor, jdbcType=VARCHAR}, #{department, jdbcType=VARCHAR},
+            #{user, jdbcType=VARCHAR},#{maintainor, jdbcType=VARCHAR}
+        </trim>
+    </insert>
+
+    <!-- 根据ID-删除服务器 -->
+    <delete id="deletePhysicServerById">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </delete>
+
+    <!-- 根据名称-删除服务器 -->
+    <delete id="deletePhysicServerByName">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE name = #{name, jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 更新服务器信息 -->
+    <update id="updatePhysicServer" parameterType="com.onebooming.frastructure.model.PhysicServerEntity">
+        UPDATE
+        <include refid="BASE_TABLE"/>
+        <set>
+            name=#{name},
+            area=#{area},
+            datacenter=#{datacenter},
+            position=#{position},
+            height=#{height},
+            brand=#{brand},
+            type=#{type},
+            serialnumber=#{serialNumber},
+            bIp=#{bIp},
+            mgmtIp=#{mgmtIp},
+            cpuname=#{cpuName},
+            cpunum=#{cpuNum},
+            memorysum=#{memorySum},
+            storage=#{storage},
+            manufactor=#{manufactor},
+            department=#{department},
+            user=#{user},
+            maintainor=#{maintainor}
+        </set>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+
+
+
+    <!-- 根据主键编号获取服务器信息 -->
+    <select id="getPhysicServerById" resultType="com.onebooming.frastructure.model.PhysicServerEntity">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        WHERE p.id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据条件查询服务器 -->
+    <select id="getPhysicServersByCond" resultType="com.onebooming.frastructure.model.PhysicServerEntity"
+            parameterType="com.onebooming.frastructure.dto.cond.PhysicServerCond">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        <where>
+            <if test="name != null">
+                AND p.name LIKE CONCAT('%',#{name, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="area != null">
+                AND p.area LIKE CONCAT('%',#{area, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="datacenter != null">
+                AND p.datacenter = #{datacenter, jdbcType=VARCHAR}
+            </if>
+            <if test="position != null">
+                AND p.position LIKE CONCAT('%',#{position, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="brand != null">
+                AND p.brand LIKE CONCAT('%',#{brand, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="serialNumber != null">
+                AND p.serialNumber = #{serialNumber, jdbcType=VARCHAR}
+            </if>
+            <if test="bIp != null">
+                AND p.bIp = #{bIp, jdbcType=VARCHAR}
+            </if>
+            <if test="mgmtIp != null">
+                AND p.mgmtIp = #{mgmtIp, jdbcType=VARCHAR}
+            </if>
+        </where>
+        ORDER BY p.id DESC
+    </select>
+    
+    <select id="getPhysicServerCount" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM <include refid="BASE_TABLE"/>
+    </select>
+
+    <!-- 模糊搜索 -->
+    <select id="searchPhysicServer" resultType="com.onebooming.frastructure.model.PhysicServerEntity">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        <where>
+            p.name LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.position LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.datacenter LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.area LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.brand LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.mgmtIp LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.serialNumber LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+        </where>
+    </select>
+
+
+</mapper>

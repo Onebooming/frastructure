@@ -55,4 +55,9 @@ public interface ErrorConstant {
         static final String USERNAME_PASSWORD_ERROR = "用户名不存在或密码错误";
         static final String NOT_LOGIN = "用户未登录";
     }
+
+    interface PhsicServer {
+        static final String NAME_IS_EMPTY = "服务器名为空";
+        static final String SERIALNum_PARAM = "序列号为空";
+    }
 }

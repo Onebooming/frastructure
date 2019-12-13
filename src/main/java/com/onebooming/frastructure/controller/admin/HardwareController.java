@@ -6,12 +6,15 @@ import com.onebooming.frastructure.constant.LogActions;
 import com.onebooming.frastructure.constant.WebConst;
 import com.onebooming.frastructure.controller.BaseController;
 import com.onebooming.frastructure.dto.cond.ContentCond;
+import com.onebooming.frastructure.dto.cond.PhysicServerCond;
 import com.onebooming.frastructure.model.ContentDomain;
 import com.onebooming.frastructure.model.OptionsDomain;
+import com.onebooming.frastructure.model.PhysicServerEntity;
 import com.onebooming.frastructure.service.content.ContentService;
 import com.onebooming.frastructure.service.log.LogService;
 import com.onebooming.frastructure.service.meta.MetaService;
 import com.onebooming.frastructure.service.option.OptionService;
+import com.onebooming.frastructure.service.phsicServer.PhysicServerService;
 import com.onebooming.frastructure.utils.APIResponse;
 import com.onebooming.frastructure.utils.GsonUtils;
 import io.swagger.annotations.Api;
@@ -36,16 +39,13 @@ import java.util.Map;
 @RequestMapping("/admin/hardware")
 public class HardwareController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
+
+
 
     @Autowired
-    private ContentService contentService;
+    PhysicServerService physicServerService;
 
-    @Autowired
-    private MetaService metaService;
 
-    @Autowired
-    private LogService logService;
 
 
     @ApiOperation("文章页")
@@ -59,8 +59,8 @@ public class HardwareController extends BaseController {
             @RequestParam(name = "limit", required = false, defaultValue = "15")
                     int limit
     ){
-        PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
-        request.setAttribute("articles", articles);
+        PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByCond(new PhysicServerCond(), page, limit);
+        request.setAttribute("physicServers", physicServers);
         return "admin/hardware_list";
     }
 
