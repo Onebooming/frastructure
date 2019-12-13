@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='设备表单',active='table'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<link th:href="@{/admin/plugins/toggles/toggles.css}" rel="stylesheet"/>
+<body class="fixed-left">
+<div id="wrapper">
+    <div th:replace="admin/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="page-title">设备表单</h4>
+                    </div>
+                    <!--          自主定制区  top        dke-->
+                    <div class="wrapper-md" style="margin-top: 20px">
+                        <!-- toaster directive -->
+                        <toaster-container
+                                toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+                        <!-- / toaster directive -->
+
+                        <uib-tabset>
+                            <div ng-controller="cigroupsCtrl">
+                                <div style="margin-top: 5px;" class="panel panel-default">
+                                    <div class="panel-body">
+                                        <form class="form-inline" role="form">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">服务器名称</span>
+                                                    <input type="text" class="form-control" ng-model="serverName"
+                                                           placeholder="服务器名称">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">设备类型</span>
+                                                    <select class="form-control" ng-model="serverType"
+                                                            ng-options="envItem.code as envItem.name for envItem in envType"
+                                                            required>
+                                                        <option value="">--请选择--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-info" ng-click="doQuery()"><span
+                                                        class="glyphicon glyphicon-search"></span>搜索
+                                                </button>
+                                            </div>
+                                            <button type="button" class="btn btn-info" ng-click="reSet()"><span
+                                                    class="glyphicon glyphicon-repeat"></span>重置
+                                            </button>
+                                            <button type="button" class="btn btn-success" ng-click="doRefresh()"><span
+                                                    class="glyphicon glyphicon-refresh"></span>同步数据
+                                            </button>
+                                        </form>
+                                        <div class="panel-body panel-no-padding" style="margin-top: 5px;">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th width="40">
+                                                        <div class="icheck checkbox-inline"><div class="icheckbox_minimal-blue" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></div>
+                                                    </th>
+                                                    <th>权限组名称</th>
+                                                    <th>说明</th>
+                                                    <th>服务器组名称</th>
+                                                    <th>环境</th>
+                                                    <th>更新时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="item in pageData">
+                                                    <!--用户信息-->
+                                                    <td>
+                                                        <div class="icheck checkbox-inline">
+                                                            <div class="icheckbox_minimal-blue" style="position: relative;">
+                                                                <input type="checkbox" style="position: absolute; opacity: 0;">
+                                                                <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+
+                                                                </ins>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td >
+                                                        {{item.groupName}}
+                                                    </td>
+                                                    <td>
+                                                        <span ng-show="item.content != ''">{{item.content}}</span>
+                                                        <span ng-show="item.content == ''">{{item.serverGroupDO.content}}</span>
+                                                    </td>
+                                                    <td>
+                                                        {{item.serverGroupDO.name}}
+                                                    </td>
+                                                    <td>
+                                                        <b style="color: #777" ng-if="item.envType == 0">ALL</b>
+                                                        <b style="color: #5bc0de" ng-if="item.envType == 1">dev</b>
+                                                        <b style="color: #449d44" ng-if="item.envType == 2">daily</b>
+                                                        <b style="color: #ec971f" ng-if="item.envType == 3">gray</b>
+                                                        <b style="color: #d9534f" ng-if="item.envType == 4">prod</b>
+                                                        <b style="color: #5e5e5e" ng-if="item.envType == 5">test</b>
+                                                        <b style="color: #286090" ng-if="item.envType == 6">back</b>
+                                                    </td>
+                                                    <td>{{item.gmtCreate}}</td>
+                                                    <td>
+                                                        <button ng-click="editCigroup(item)"
+                                                                class="btn btn-xs"
+                                                                style="margin-left: 5px; background-color: #2e6da4; color: white;">
+                                                            <span class="glyphicon glyphicon-edit"></span>编辑</button>
+
+                                                        <button ng-click="memberList(item)"
+                                                                class="btn btn-xs"
+                                                                uib-popover-html="'用户详情'" popover-trigger="'mouseenter'"
+                                                                style="margin-left: 5px; background-color: #2e6da4; color: white;">
+                                                            <span class="icon icon-users"></span>用户</button>
+
+                                                        <button ng-click="delCigroup(item)"
+                                                                class="btn btn-xs pull-right"
+                                                                style="background-color: red; color: white;">
+                                                            <span class="glyphicon glyphicon-remove"></span>删除</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <ul style="margin: 0px; float: right;" uib-pagination
+                                                            total-items="totalItems" ng-model="currentPage"
+                                                            items-per-page="pageLength" max-size="10" ng-change="pageChanged()"
+                                                            previous-text="&lsaquo;" next-text="&rsaquo;"></ul>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tabset>
+                    </div>
+                    <!--         自主定制区  bottom           -->
+
+                    <div class="clearfix"></div>
+
+                </div>
+                <div th:replace="admin/footer :: footer-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="admin/footer :: footer"></div>
+<script src="//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js"></script>
+</body>
+</html>
