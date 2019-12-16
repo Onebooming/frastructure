@@ -43,4 +43,9 @@ public class PhysicServerServiceImpl implements PhysicServerService {
         physicServerDao.deletePhysicServerById(id);
         //同时也要删除该文章下的所有评论
     }
+
+    @Override
+    public void updatePhysicServer(PhysicServerEntity physicServerEntity) {
+        physicServerDao.updatePhysicServer(physicServerEntity);
+    }
 }

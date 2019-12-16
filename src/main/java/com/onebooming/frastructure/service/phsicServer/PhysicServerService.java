@@ -23,4 +23,5 @@ public interface PhysicServerService {
 
     void deleteArticleById(Long id);
 
+    void updatePhysicServer(PhysicServerEntity physicServerEntity);
 }
