@@ -7,7 +7,7 @@ import com.onebooming.frastructure.model.ContentDomain;
 
 /**
  * 文章服务层
- * Created by Donghua.Chen on 2018/4/29.
+ * Created by Onebooming.
  */
 public interface ContentService {
 

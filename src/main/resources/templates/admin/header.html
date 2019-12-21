@@ -114,6 +114,14 @@
                        th:class="${active}=='hardware'?'waves-effect active':'waves-effect'"><i
                             class="glyphicon glyphicon-tasks" aria-hidden="true"></i><span> 设备表单 </span></a>
                 </li>
+
+                <!-- 表格 -->
+                <li th:class="${active}=='advance'?'active':''">
+                    <a th:href="@{/admin/advance}"
+                       th:class="${active}=='advance'?'waves-effect active':'waves-effect'"><i
+                            class="glyphicon glyphicon-tasks" aria-hidden="true"></i><span> 实验页面 </span></a>
+                </li>
+
             </ul>
             <div class="clearfix"></div>
         </div>
