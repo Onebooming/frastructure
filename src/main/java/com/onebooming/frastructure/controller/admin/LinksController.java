@@ -22,7 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by Donghua.Chen on 2018/5/1.
+ * 链接
+ * @author Onebooming
+ * @version 1.0
+ * @date 2019/12/21 1:34 下午
  */
 @Api("友链")
 @Controller

@@ -36,7 +36,9 @@ import java.util.List;
 
 /**
  * 首页和关于我的页面控制器
- * Created by Donghua.Chen on 2018/4/28.
+ * @author Onebooming
+ * @version 1.0
+ * @date 2019/12/21 1:34 下午
  */
 @Api("网站首页和关于页面")
 @Controller

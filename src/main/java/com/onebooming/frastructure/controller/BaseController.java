@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- *
- * Created by Donghua.Chen on 2018/4/30.
+ * 基础
+ * @author Onebooming
+ * @version 1.0
+ * @date 2019/12/21 1:34 下午
  */
 public abstract class BaseController {
 

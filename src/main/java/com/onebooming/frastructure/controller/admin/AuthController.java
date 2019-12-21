@@ -28,7 +28,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by Donghua.Chen on 2018/4/30.
+ * 登录相关接口
+ *
+ * @author Onebooming
+ * @version 1.0
+ * @date 2019/12/21 12:39 下午
  */
 @Api("登录相关接口")
 @Controller
@@ -70,7 +74,14 @@ public class AuthController extends BaseController {
         Integer error_count = cache.hget("login_error_count",ip);
         try {
             UserDomain userInfo = userService.login(username, password);
+            /**
+             * 1、request.getSession()可以帮你得到HttpSession类型的对象，通常称之为session对象，session对象的作用域为一次会话，通常浏览器不关闭，保存的值就不会消失，当然也会出现session超时。服务器里面可以设置session的超时时间，web.xml中有一个session time out的地方，tomcat默认为30分钟
+             * 2、session.setAttribute("key",value)；是session设置值的方法，原理同java中的HashMap的键值对，意思也就是key现在为“user”；存放的值为userName，userName应该为一个String类型的变量吧？看你自己的定义。
+             * 3、可以使用session.getAttribute("key");来取值，以为着你能得到userName的值。
+             * 这里LOGIN_SESSION_KEY = "login_user"，就是key为"login_user"，属性值为userInfo
+             */
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, userInfo);
+            //如果选择"记住我"的话，则设置一个cookie，记住用户名和密码
             if (StringUtils.isNotBlank(remeber_me)) {
                 TaleUtils.setCookie(response, userInfo.getUid());
             }
