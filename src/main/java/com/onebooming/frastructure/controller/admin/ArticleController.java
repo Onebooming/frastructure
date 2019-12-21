@@ -16,19 +16,19 @@ import com.onebooming.frastructure.utils.APIResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * 文章管理类
+ *
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/15 7:31 下午
@@ -37,7 +37,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/article")
 @Transactional(rollbackFor = BusinessException.class)
-public class ArticleController  extends BaseController {
+public class ArticleController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
 
     @Autowired
@@ -60,7 +60,7 @@ public class ArticleController  extends BaseController {
             @ApiParam(name = "limit", value = "每页数量", required = false)
             @RequestParam(name = "limit", required = false, defaultValue = "15")
                     int limit
-    ){
+    ) {
         PageInfo<ContentDomain> articles = contentService.getArticlesByCond(new ContentCond(), page, limit);
         request.setAttribute("articles", articles);
         return "admin/article_list";
@@ -69,7 +69,7 @@ public class ArticleController  extends BaseController {
 
     @ApiOperation("发布文章页")
     @GetMapping(value = "/publish")
-    public String newArticle(HttpServletRequest request){
+    public String newArticle(HttpServletRequest request) {
         MetaCond metaCond = new MetaCond();
         metaCond.setType(Types.CATEGORY.getType());
         List<MetaDomain> metas = metaService.getMetas(metaCond);
@@ -109,7 +109,8 @@ public class ArticleController  extends BaseController {
             @ApiParam(name = "allowComment", value = "是否允许评论", required = true)
             @RequestParam(name = "allowComment", required = true)
                     Boolean allowComment
-    ){
+    ) {
+
         ContentDomain contentDomain = new ContentDomain();
         contentDomain.setTitle(title);
         contentDomain.setTitlePic(titlePic);
@@ -136,7 +137,7 @@ public class ArticleController  extends BaseController {
             @PathVariable
                     Integer cid,
             HttpServletRequest request
-    ){
+    ) {
         ContentDomain content = contentService.getAtricleById(cid);
         request.setAttribute("contents", content);
         MetaCond metaCond = new MetaCond();
@@ -182,7 +183,7 @@ public class ArticleController  extends BaseController {
             @ApiParam(name = "allowComment", value = "是否允许评论", required = true)
             @RequestParam(name = "allowComment", required = true)
                     Boolean allowComment
-    ){
+    ) {
         ContentDomain contentDomain = new ContentDomain();
         contentDomain.setCid(cid);
         contentDomain.setTitle(title);
@@ -205,12 +206,12 @@ public class ArticleController  extends BaseController {
     public APIResponse deleteArticle(
             @ApiParam(name = "cid", value = "文章主键", required = true)
             @RequestParam(name = "cid", required = true)
+
                     Integer cid,
             HttpServletRequest request
-    ){
+    ) {
         contentService.deleteArticleById(cid);
         logService.addLog(LogActions.DEL_ARTICLE.getAction(), cid + "", request.getRemoteAddr(), this.getUid(request));
         return APIResponse.success();
     }
-
 }

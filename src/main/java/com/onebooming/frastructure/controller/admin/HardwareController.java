@@ -15,9 +15,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
-
-
 
 
 /**
@@ -29,15 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 public class HardwareController extends BaseController {
 
 
-
-
     @Autowired
     PhysicServerService physicServerService;
 
     @Autowired
     private LogService logService;
-
-
 
 
     @ApiOperation("文章页")
@@ -50,8 +45,13 @@ public class HardwareController extends BaseController {
             @ApiParam(name = "limit", value = "每页数量", required = false)
             @RequestParam(name = "limit", required = false, defaultValue = "15")
                     int limit
-    ){
+    ) {
         PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByCond(new PhysicServerCond(), page, limit);
+        /**
+         * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
+         * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
+         * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
+         */
         request.setAttribute("physicServers", physicServers);
         return "admin/hardware_list";
     }
@@ -64,7 +64,7 @@ public class HardwareController extends BaseController {
             @RequestParam(name = "id", required = true)
                     Long id,
             HttpServletRequest request
-    ){
+    ) {
         physicServerService.deleteArticleById(id);
         logService.addLog(LogActions.DEL_ARTICLE.getAction(), id + "", request.getRemoteAddr(), this.getUid(request));
         return APIResponse.success();
@@ -108,7 +108,7 @@ public class HardwareController extends BaseController {
             @ApiParam(name = "mgmtIp", value = "管理IP", required = true)
             @RequestParam(name = "mgmtIp", required = true)
                     String mgmtIp
-    ){
+    ) {
         PhysicServerEntity physicServerEntity = new PhysicServerEntity();
         physicServerEntity.setId(id);
         physicServerEntity.setName(name);
@@ -126,7 +126,5 @@ public class HardwareController extends BaseController {
         physicServerService.updatePhysicServer(physicServerEntity);
         return APIResponse.success();
     }
-
-
 
 }

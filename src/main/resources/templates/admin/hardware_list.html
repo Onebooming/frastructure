@@ -15,6 +15,7 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>ID</th>
                                 <th width="22%">硬件名</th>
                                 <th width="5%">数据中心</th>
                                 <th width="10%">管理IP</th>
@@ -29,6 +30,7 @@
                             <tbody>
                             <th:block th:each="server : ${physicServers.list}">
                                 <tr th:cid="${server.id}">
+                                    <td><th:block th:text="${server.id}"/></td>
                                     <td>
                                         <a th:href="@{'/admin/hardware/'}" th:text="${server.name}"></a>
                                     </td>
@@ -47,17 +49,18 @@
                                         <th:block th:if="${server.manufactor == '基础设施部'}">
                                             <span class="label label-success">基础设施部</span>
                                         </th:block>
-                                       <th:block th:if="${server.manufactor == '信息安全B部' }">
-                                           <span class="label label-default">草稿</span>
-                                       </th:block>
+                                        <th:block th:if="${server.manufactor == '信息安全B部' }">
+                                            <span class="label label-default">草稿</span>
+                                        </th:block>
                                     </td>
                                     <td><th:block th:text="${server.area}"/></td>
                                     <td><th:block th:text="${server.position}"/></td>
                                     <td>
-                                        <a th:href="@{'/admin/article'}" class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
-                                            <i class="fa fa-edit"></i> <span>编辑</span></a>
-                                        <a href="javascript:void(0)" th:onclick="'delPost('+${server.id}+');'" class="btn btn-danger btn-sm waves-effect waves-light m-b-5">
-                                            <i class="fa fa-trash-o"></i> <span>删除</span></a>
+                                        <button  type="button" class="btn btn-primary btn-sm waves-effect waves-light m-b-5" data-toggle="modal"  data-target="#editModal" onclick="Values(#{cid})">
+                                            <i class="fa fa-edit"></i> <span>编辑</span></button>
+                                        <a href="javascript:void(0)" th:onclick="'delPost('+${server.id}+');'"
+                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
+                                                class="fa fa-trash-o"></i> <span>删除</span></a>
                                         <a class="btn btn-warning btn-sm waves-effect waves-light m-b-5"
                                            target="_blank"><i
                                                 class="fa fa-rocket"></i> <span>预览</span></a>
@@ -68,6 +71,53 @@
                             </tbody>
                         </table>
                         <div th:replace="comm/macros :: pageAdminNav(${physicServers})"></div>
+                    </div>
+                    <!-- 模态框示例（Modal） -->
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="myForm">
+                            <form th:action="@{/admin/hardware/modify}" th:method="post">
+                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="id">id:</label>
+                                                    <input  value="" type="number" class="form-control" id="id" name="id" th:value="${id}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">name:</label>
+                                                    <input value="" type="text" class="form-control" id="name" name="name" th:value="${name}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="area">area:</label>
+                                                    <input value="" type="text" class="form-control" id="area" name="area" th:value="${area}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="datacenter">datacenter:</label>
+                                                    <input value="" type="text" class="form-control" id="datacenter" name="datacenter" th:value="${datacenter}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="department">department:</label>
+                                                    <input value="" type="text" class="form-control" id="department" name="department" th:value="${department}"/>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <input type="submit" class="btn btn-primary" value="save"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div th:replace="admin/footer :: footer-content"></div>
@@ -88,16 +138,35 @@
                     data: {id: id},
                     success: function (result) {
                         if(result && result.code == 'success'){
-                            tale.alertOkAndReload('服务器信息删除成功');
+                            tale.alertOkAndReload('服务器删除成功');
                         } else {
-                            tale.alertError(result.msg || '服务器信息删除失败');
+                            tale.alertError(result.msg || '服务器删除失败');
                         }
                     }
                 });
             }
         });
     }
-    /*]]>*/
+    <!-- EDIT modal-->
+    $(document).ready(function(){
+        $('.dropdown .eBtn').on('click', function(event){
+            //prevents redirection to blank page with JSON-Task-Object
+            event.preventDefault();
+            var href = $(this).attr('href');
+            $.get(href, function(task){
+                $('.myForm #id').val(task.id);
+                $('.myForm #name').val(task.name);
+                $('.myForm #area').val(task.area);
+                $('.myForm #datacenter').val(task.datacenter);
+                $('.myForm #department').val(task.department);
+            });
+            $('.myForm #editModal').modal();
+        });
+    });
+    $("#editModal").modal("hide");
+    function Values(ID) {
+        $("#id").val(ID);
+    }
 </script>
 </body>
 </html>

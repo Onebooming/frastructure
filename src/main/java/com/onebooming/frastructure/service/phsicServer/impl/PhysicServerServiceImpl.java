@@ -6,11 +6,9 @@ import com.onebooming.frastructure.constant.ErrorConstant;
 import com.onebooming.frastructure.dao.PhysicServerDao;
 import com.onebooming.frastructure.dto.cond.PhysicServerCond;
 import com.onebooming.frastructure.exception.BusinessException;
-import com.onebooming.frastructure.model.ContentDomain;
 import com.onebooming.frastructure.model.PhysicServerEntity;
 import com.onebooming.frastructure.service.phsicServer.PhysicServerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +23,7 @@ import java.util.List;
 public class PhysicServerServiceImpl implements PhysicServerService {
     @Autowired
     PhysicServerDao physicServerDao;
+
     @Override
     public PageInfo<PhysicServerEntity> getPhysicServerByCond(PhysicServerCond physicServerCond, int pageNum, int pageSize) {
         if (null == physicServerCond)
