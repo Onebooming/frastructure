@@ -18,6 +18,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
 </head>
 <div th:fragment="header-body">
 <div class="topbar">
@@ -25,7 +26,7 @@
         <div class="text-center p-t-10" style="margin: 0 auto;">
             <div class="pull-left" style="padding-left: 10px;">
                 <a th:href="@{/admin/index}">
-                    <img th:src="@{/admin/images/logo.png}" width="50" height="50"/>
+                    <img th:src="@{/admin/images/logo0.png}" width="50" height="50"/>
                 </a>
             </div>
             <div class="pull-left" style="padding-left: 10px;">
@@ -115,11 +116,11 @@
                             class="glyphicon glyphicon-tasks" aria-hidden="true"></i><span> 设备表单 </span></a>
                 </li>
 
-                <!-- 表格 -->
+                <!-- 实验页面 -->
                 <li th:class="${active}=='advance'?'active':''">
-                    <a th:href="@{/admin/advance}"
+                    <a th:href="@{/advance}"
                        th:class="${active}=='advance'?'waves-effect active':'waves-effect'"><i
-                            class="glyphicon glyphicon-tasks" aria-hidden="true"></i><span> 实验页面 </span></a>
+                            class="glyphicon glyphicon-tasks" aria-hidden="true"></i><span> 试验表单 </span></a>
                 </li>
 
             </ul>

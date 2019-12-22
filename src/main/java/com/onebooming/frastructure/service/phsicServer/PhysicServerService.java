@@ -21,7 +21,9 @@ public interface PhysicServerService {
      */
     PageInfo<PhysicServerEntity> getPhysicServerByCond(PhysicServerCond physicServerCond, int pageNum, int pageSize);
 
-    void deleteArticleById(Long id);
+    void deleteById(Long id);
 
     void updatePhysicServer(PhysicServerEntity physicServerEntity);
+
+    PhysicServerEntity findEntityById(Long id);
 }

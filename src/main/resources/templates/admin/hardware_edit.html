@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='设备详情页',active='physicServer'">
+<header th:replace="admin/header::headerFragment(${title},${active})">
+</header>
+<body class="fixed-left">
+<div id="wrapper">
+    <div th:replace="admin/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="page-title">硬件详情</h4>
+                    </div>
+                    <div class="col-md-12" style="overflow: auto">
+                        <form class="form-horizontal" role="form" id="global-form">
+                            <div class="col-md-6">
+                                <div class="panel panel-color panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">服务器信息</h3>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">服务器基本信息</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="id" placeholder="ID"
+                                                       th:value="${server.id}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">服务器名</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="name" placeholder="服务器名"
+                                                       th:value="${server.name}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">地区</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="area" placeholder="地区"
+                                                       th:value="${server.area}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">数据中心</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="datacenter"
+                                                       placeholder="数据中心"
+                                                       th:value="${server.datacenter}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">位置</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="position" placeholder="位置"
+                                                       th:value="${server.position}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="panel panel-color panel-inverse">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">详细参数</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">管理IP</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="mgmtIp"
+                                                       th:value="${server.mgmtIp}"
+                                                       placeholder="管理IP，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">业务IP</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="bIp"
+                                                       th:value="${server.bIp}"
+                                                       placeholder="业务IP，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">CPU数量</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="cpuNum"
+                                                       th:value="${server.cpuNum}"
+                                                       placeholder="CPU数量，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">内存总量</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="memorySum"
+                                                       th:value="${server.memorySum}"
+                                                       placeholder="内存总量，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">存储容量</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="storage"
+                                                       th:value="${server.storage}"
+                                                       placeholder="存储容量，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">设备品牌</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="brand"
+                                                       th:value="${server.brand}" placeholder="设备品牌，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">设备序列号</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="serialNumber"
+                                                       th:value="${server.serialNumber}" placeholder="设备序列号，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix pull-right">
+                                            <button type="button" class="btn btn-inverse waves-effect waves-light"
+                                                    onclick="saveSetting()">
+                                                保存设置
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- 模态框示例（Modal） -->
+                </div>
+                <div th:replace="admin/footer :: footer-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="admin/footer :: footer"></div>
+
+<script src="//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js"></script>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    var tale = new $.tale();
+
+    /**
+     * 保存全局设置
+     */
+    function saveSetting() {
+        var param = $('#global-form').serialize();
+        tale.post({
+            url: '/admin/hardware/save',
+            data: param,
+            success: function (result) {
+                if (result && result.code == 'success') {
+                    tale.alertOk('设置保存成功');
+                } else {
+                    tale.alertError(result.msg || '设置保存失败');
+                }
+            }
+        });
+    }
+
+    /**
+     * 设置是否允许重新安装
+     */
+    function allow_reinstall(obj) {
+        var this_ = $(obj);
+        var on = this_.find('.toggle-on.active').length;
+        var off = this_.find('.toggle-off.active').length;
+        if (on == 1) {
+            $('#allow_install').val(0);
+        }
+        if (off == 1) {
+            $('#allow_install').val(1);
+        }
+    }
+
+    /**
+     * 系统备份
+     * @param type
+     */
+    function backup(type) {
+        var param = {
+            bk_type: type,
+            bk_path: $('#backup_dir').val()
+        };
+        tale.post({
+            url: '/admin/setting/backup',
+            data: param,
+            success: function (result) {
+                if (result && result.code == 'success') {
+                    if (result.payload && result.payload.attach_path) {
+                        swal('备份成功', '您的附件备份在 <mark>' + result.payload.attach_path + '</mark><br/><br/>' +
+                            '主题备份存储在 <mark>' + result.payload.theme_path + '</mark>', 'success');
+                        $('#backup_dir').val('');
+                    }
+                    if (result.payload.sql_path) {
+                        window.location.href = '/upload/' + result.payload.sql_path;
+                    }
+                } else {
+                    tale.alertError(result.msg || '备份失败');
+                }
+            }
+        });
+    }
+
+    $('.allow-1').toggles({
+        on: true,
+        text: {
+            on: '开启',
+            off: '关闭'
+        }
+    });
+    $('.allow-0').toggles({
+        off: true,
+        text: {
+            on: '开启',
+            off: '关闭'
+        }
+    });
+
+</script>
+</body>
+</html>

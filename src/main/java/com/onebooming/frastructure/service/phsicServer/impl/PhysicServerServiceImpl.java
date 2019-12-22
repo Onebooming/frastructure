@@ -36,7 +36,7 @@ public class PhysicServerServiceImpl implements PhysicServerService {
 
     @Override
     @Transactional
-    public void deleteArticleById(Long id) {
+    public void deleteById(Long id) {
         if (null == id)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         physicServerDao.deletePhysicServerById(id);
@@ -46,5 +46,10 @@ public class PhysicServerServiceImpl implements PhysicServerService {
     @Override
     public void updatePhysicServer(PhysicServerEntity physicServerEntity) {
         physicServerDao.updatePhysicServer(physicServerEntity);
+    }
+
+    @Override
+    public PhysicServerEntity findEntityById(Long id) {
+        return physicServerDao.getPhysicServerById(id);
     }
 }
