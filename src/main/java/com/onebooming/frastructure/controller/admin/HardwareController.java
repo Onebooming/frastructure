@@ -35,7 +35,7 @@ public class HardwareController extends BaseController {
     private LogService logService;
 
 
-    @ApiOperation("文章页")
+    @ApiOperation("服务器列表页")
     @GetMapping(value = "")
     public String index(
             HttpServletRequest request,
@@ -135,11 +135,11 @@ public class HardwareController extends BaseController {
     @ApiOperation("服务器详情")
     @GetMapping(value = "/profile/{id}")
     public String physicServerProfile(@ApiParam(name = "id", value = "服务器ID", required = true)
-                                          @PathVariable
-                                                  Long id,
+                                      @PathVariable
+                                              Long id,
                                       HttpServletRequest request) {
         PhysicServerEntity physicServerEntity = physicServerService.findEntityById(id);
-        request.setAttribute("server",physicServerEntity);
+        request.setAttribute("server", physicServerEntity);
 
         return "admin/hardware_edit";
     }
@@ -166,6 +166,18 @@ public class HardwareController extends BaseController {
             @ApiParam(name = "position", value = "位置", required = true)
             @RequestParam(name = "position", required = true)
                     String position,
+            @ApiParam(name = "height", value = "高度", required = true)
+            @RequestParam(name = "height", required = true)
+                    String height,
+            @ApiParam(name = "department", value = "部门", required = true)
+            @RequestParam(name = "department", required = true)
+                    String department,
+            @ApiParam(name = "user", value = "使用人", required = true)
+            @RequestParam(name = "user", required = true)
+                    String user,
+            @ApiParam(name = "maintainor", value = "运维人员", required = true)
+            @RequestParam(name = "maintainor", required = true)
+                    String maintainor,
 
             @ApiParam(name = "mgmtIp", value = "管理IP", required = true)
             @RequestParam(name = "mgmtIp", required = true)
@@ -193,7 +205,13 @@ public class HardwareController extends BaseController {
 
             @ApiParam(name = "serialNumber", value = "序列号", required = false)
             @RequestParam(name = "serialNumber", required = false, defaultValue = "默认分类")
-                    String serialNumber
+                    String serialNumber,
+            @ApiParam(name = "manufactor", value = "制造商", required = true)
+            @RequestParam(name = "manufactor", required = true)
+                    String manufactor,
+            @ApiParam(name = "type", value = "型号", required = true)
+            @RequestParam(name = "type", required = true)
+                    String type
     ) {
         PhysicServerEntity physicServerEntity = new PhysicServerEntity();
         physicServerEntity.setId(id);
@@ -208,10 +226,49 @@ public class HardwareController extends BaseController {
         physicServerEntity.setSerialNumber(serialNumber);
         physicServerEntity.setbIp(bIp);
         physicServerEntity.setMgmtIp(mgmtIp);//
+        physicServerEntity.setHeight(height);
+        physicServerEntity.setType(type);
+        physicServerEntity.setManufactor(manufactor);
+        physicServerEntity.setDepartment(department);
+        physicServerEntity.setUser(user);
+        physicServerEntity.setMaintainor(maintainor);
 
 
         physicServerService.updatePhysicServer(physicServerEntity);
         return APIResponse.success();
+    }
+
+
+    /**
+     * 模糊搜索
+     * @param request
+     * @param param
+     * @param page
+     * @param limit
+     * @return
+     */
+    @ApiOperation("关键词搜索结果页")
+    @GetMapping(value = "/search/{param}")
+    public String searchByParamResult(
+            HttpServletRequest request,
+            @ApiParam(name = "param", value = "关键词", required = false)
+            @RequestParam(name = "param", required = true, defaultValue = "")
+                    String param,
+            @ApiParam(name = "page", value = "页数", required = false)
+            @RequestParam(name = "page", required = false, defaultValue = "1")
+                    int page,
+            @ApiParam(name = "limit", value = "每页数量", required = false)
+            @RequestParam(name = "limit", required = false, defaultValue = "15")
+                    int limit
+    ) {
+        PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByParm(param,page,limit);
+        /**
+         * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
+         * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
+         * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
+         */
+        request.setAttribute("physicServers", physicServers);
+        return "admin/hardware_list";
     }
 
 }

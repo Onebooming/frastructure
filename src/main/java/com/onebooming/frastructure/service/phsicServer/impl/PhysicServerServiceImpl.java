@@ -52,4 +52,16 @@ public class PhysicServerServiceImpl implements PhysicServerService {
     public PhysicServerEntity findEntityById(Long id) {
         return physicServerDao.getPhysicServerById(id);
     }
+
+    @Override
+    public PageInfo<PhysicServerEntity> getPhysicServerByParm(String param, int pageNum, int pageSize) {
+        if (null == param)
+            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
+        PageHelper.startPage(pageNum, pageSize);
+        //模糊搜索
+        List<PhysicServerEntity> physicServerEntityList = physicServerDao.searchPhysicServer(param);
+        //实现分页
+        PageInfo<PhysicServerEntity> pageInfo = new PageInfo<>(physicServerEntityList);
+        return pageInfo;
+    }
 }

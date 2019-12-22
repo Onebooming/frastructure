@@ -26,4 +26,6 @@ public interface PhysicServerService {
     void updatePhysicServer(PhysicServerEntity physicServerEntity);
 
     PhysicServerEntity findEntityById(Long id);
+
+    PageInfo<PhysicServerEntity> getPhysicServerByParm(String param, int pageNum, int pageSize);
 }

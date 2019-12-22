@@ -19,7 +19,7 @@
                                     <div class="col-md-offset-12 collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <ul class="nav navbar-nav">
                                             <li><a href="#">硬件管理</a></li>
-                                            <li><a th:href="@{/admin/hardware/profile}">服务器</a></li>
+                                            <li><a th:href="@{/advance}">服务器</a></li>
                                             <li><a href="#">网络设备</a></li>
                                             <li><a href="#">存储设备</a></li>
                                             <li class="dropdown">
@@ -35,11 +35,11 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                        <form class="navbar-form navbar-right" style="margin-top: 15px">
+                                        <form id="searchForm" class="navbar-form navbar-right" style="margin-top: 15px">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Search">
+                                                <input type="text" class="form-control" placeholder="Search" id="param" >
                                             </div>
-                                            <button type="submit" class="btn btn-default">Submit</button>
+                                            <button id="search-btn" type="button"  class="btn btn-default">搜索</button>
                                         </form>
 
                                     </div><!-- /.navbar-collapse -->
@@ -79,29 +79,38 @@
                                             <span class="label label-success">B9企业</span>
                                         </th:block>
                                         <th:block th:if="${server.datacenter == 'B9互联网'}">
-                                            <span class="label label-default">B9互联网</span>
+                                            <span class="label label-purple">B9互联网</span>
                                         </th:block>
                                     </td>
                                     <td><th:block th:text="${server.mgmtIp}"/></td>
                                     <td><th:block th:text="${server.serialNumber}"/></td>
                                     <td><th:block th:text="${server.type}"/></td>
                                     <td>
-                                        <th:block th:if="${server.manufactor == '基础设施部'}">
+                                        <th:block th:if="${server.department == '基础设施部'}">
                                             <span class="label label-success">基础设施部</span>
                                         </th:block>
-                                        <th:block th:if="${server.manufactor == '信息安全B部' }">
-                                            <span class="label label-default">草稿</span>
+                                        <th:block th:if="${server.department == '信息安全B部' }">
+                                            <span class="label label-default">信息安全B部</span>
+                                        </th:block>
+                                        <th:block th:if="${server.department == '系统运维部' }">
+                                            <span class="label label-default">系统运维部</span>
+                                        </th:block>
+                                        <th:block th:if="${server.department == '技术平台部' }">
+                                            <span class="label label-primary">技术平台部</span>
+                                        </th:block>
+                                        <th:block th:if="${server.department == '*' }">
+                                            <span class="label label-pink">未知部门</span>
                                         </th:block>
                                     </td>
                                     <td><th:block th:text="${server.area}"/></td>
                                     <td><th:block th:text="${server.position}"/></td>
                                     <td>
-                                        <button  type="button" class="btn btn-primary btn-sm waves-effect waves-light m-b-5" data-toggle="modal"  data-target="#editModal" onclick="Values(#{cid})">
-                                            <i class="fa fa-edit"></i> <span>编辑</span></button>
+                                        <a  th:href="@{'/admin/hardware/profile/'+${server.id}}"  class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
+                                            <i class="fa fa-edit"></i> <span>编辑</span></a>
                                         <a href="javascript:void(0)" th:onclick="'delPost('+${server.id}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-trash-o"></i> <span>删除</span></a>
-                                        <a th:href="@{'/admin/hardware/profile'+${server.id}}" class="btn btn-warning btn-sm waves-effect waves-light m-b-5">
+                                        <a th:href="@{'/admin/hardware/profile/'+${server.id}}" class="btn btn-warning btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-rocket"></i> <span>预览</span></a>
                                     </td>
                                 </tr>
@@ -186,6 +195,29 @@
             }
         });
     }
+
+
+    $('#search-btn').click(function () {
+        var param = $('#searchForm #param').val();
+        if (param && param != '') {
+            tale.get({
+                url: '/admin/hardware/search',
+                data: {param:param},
+                success: function (result) {
+                    $('#searchForm #param').val('');
+                    if (result && result.code == 'success') {
+                        tale.alertOkAndReload('查找成功');
+                    } else {
+                        tale.alertError(result.msg || '查找失败');
+                    }
+                }
+            });
+        }
+    });
+
+
+
+
     <!-- EDIT modal-->
     function updatePhysicServer(id) {
         tale.alertConfirm({

@@ -62,6 +62,42 @@
                                                        aria-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">高度</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="height" placeholder="高度"
+                                                       th:value="${server.height}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">所属部门</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="department" placeholder="所属部门"
+                                                       th:value="${server.department}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">使用者</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="user" placeholder="使用者"
+                                                       th:value="${server.user}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">运维人员</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="maintainor" placeholder="运维人员"
+                                                       th:value="${server.maintainor}" required="required"
+                                                       aria-required="true"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix pull-left">
+                                            <a class="btn btn-default" th:href="@{/admin/hardware}" role="button">服务器列表</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +125,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">CPU数量</label>
+                                            <label class="col-md-3 control-label sr">CPU数量</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="cpuNum"
+                                                <input type="number" class="form-control" name="cpuNum"
                                                        th:value="${server.cpuNum}"
                                                        placeholder="CPU数量，不输入则不显示"/>
                                             </div>
@@ -99,7 +135,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">内存总量</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="memorySum"
+                                                <input type="number" class="form-control" name="memorySum"
                                                        th:value="${server.memorySum}"
                                                        placeholder="内存总量，不输入则不显示"/>
                                             </div>
@@ -107,7 +143,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">存储容量</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="storage"
+                                                <input type="number" class="form-control" name="storage"
                                                        th:value="${server.storage}"
                                                        placeholder="存储容量，不输入则不显示"/>
                                             </div>
@@ -126,6 +162,20 @@
                                                        th:value="${server.serialNumber}" placeholder="设备序列号，不输入则不显示"/>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">设备序列号</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="manufactor"
+                                                       th:value="${server.manufactor}" placeholder="设备制造商，不输入则不显示"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">设备型号</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="type"
+                                                       th:value="${server.type}" placeholder="设备型号，不输入则不显示"/>
+                                            </div>
+                                        </div>
                                         <div class="clearfix pull-right">
                                             <button type="button" class="btn btn-inverse waves-effect waves-light"
                                                     onclick="saveSetting()">
@@ -139,7 +189,6 @@
 
                         <div class="clearfix"></div>
                     </div>
-                    <!-- 模态框示例（Modal） -->
                 </div>
                 <div th:replace="admin/footer :: footer-content"></div>
             </div>
