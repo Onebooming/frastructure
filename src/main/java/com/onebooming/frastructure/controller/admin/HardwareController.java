@@ -271,4 +271,15 @@ public class HardwareController extends BaseController {
         return "admin/hardware_list";
     }
 
+    @ApiOperation("导出服务器信息到Excel中")
+    @PostMapping(value = "/exportToExcel")
+    @ResponseBody
+    public APIResponse exportToExcel(
+            HttpServletRequest request
+    ) {
+        //physicServerService.getAllPhysicService();
+
+        return APIResponse.success();
+    }
+
 }
