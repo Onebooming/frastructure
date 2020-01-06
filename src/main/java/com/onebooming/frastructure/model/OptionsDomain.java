@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.model;
 
+import java.io.Serializable;
+
 /**
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/11 19:28
  * 网站配置项
  */
-public class OptionsDomain {
+public class OptionsDomain implements Serializable {
     /** 名称 */
     private String name;
     /** 内容 */

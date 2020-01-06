@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.model;
 
+import java.io.Serializable;
+
 /**
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/11 19:19
  * 网站图片相关的实体类
  */
-public class AttAchDomain {
+public class AttAchDomain implements Serializable {
     /** 主键编号 */
     private Integer id;
     /** 文件名称 */

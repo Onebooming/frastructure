@@ -2,6 +2,7 @@ package com.onebooming.frastructure.dto;
 
 import com.onebooming.frastructure.model.ContentDomain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @date 2019/12/12 13:53
  */
-public class ArchiveDto {
+public class ArchiveDto implements Serializable {
     private String date;
     private String count;
     private List<ContentDomain> articles;

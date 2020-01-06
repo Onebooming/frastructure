@@ -46,7 +46,7 @@ public class HardwareController extends BaseController {
             @RequestParam(name = "limit", required = false, defaultValue = "15")
                     int limit
     ) {
-        PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByCond(new PhysicServerCond(), page, limit);
+        PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByCond2(new PhysicServerCond(), page, limit);
         /**
          * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
          * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
@@ -248,7 +248,7 @@ public class HardwareController extends BaseController {
      * @return
      */
     @ApiOperation("关键词搜索结果页")
-    @GetMapping(value = "/search/{param}")
+    @PostMapping(value = "/search")
     public String searchByParamResult(
             HttpServletRequest request,
             @ApiParam(name = "param", value = "关键词", required = false)

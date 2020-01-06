@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.dto.cond;
 
+import java.io.Serializable;
+
 /**
  * 用户查找条件
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/12 14:00
  */
-public class UserCond {
+public class UserCond implements Serializable {
     private String username;
     private String password;
 

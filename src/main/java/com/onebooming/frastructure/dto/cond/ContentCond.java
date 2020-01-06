@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.dto.cond;
 
+import java.io.Serializable;
+
 /**
  * 文章查找条件
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/12 14:01
  */
-public class ContentCond {
+public class ContentCond implements Serializable {
 
     /**
      * 标签

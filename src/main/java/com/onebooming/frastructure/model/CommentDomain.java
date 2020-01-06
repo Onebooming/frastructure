@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.model;
 
+import java.io.Serializable;
+
 /**
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/11 19:21
  * 文章评论实体类
  */
-public class CommentDomain {
+public class CommentDomain implements Serializable {
 
     /**
      * comment表主键

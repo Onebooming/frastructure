@@ -42,6 +42,7 @@
                                             <button id="search-btn" type="button"  class="btn btn-default">搜索</button>
                                         </form>
 
+
                                     </div><!-- /.navbar-collapse -->
                                 </div><!-- /.container-fluid -->
                             </nav>
@@ -197,20 +198,13 @@
     }
 
 
+
     $('#search-btn').click(function () {
-        var param = $('#searchForm #param').val();
-        if (param && param != '') {
-            tale.get({
+        var param1 = $('#searchForm #param').val();
+        if (param1 && param1 != ''){
+            tale.post({
                 url: '/admin/hardware/search',
-                data: {param:param},
-                success: function (result) {
-                    $('#searchForm #param').val('');
-                    if (result && result.code == 'success') {
-                        tale.alertOkAndReload('查找成功');
-                    } else {
-                        tale.alertError(result.msg || '查找失败');
-                    }
-                }
+                data: {param:param1}
             });
         }
     });

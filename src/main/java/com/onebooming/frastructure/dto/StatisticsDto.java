@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.dto;
 
+import java.io.Serializable;
+
 /**
  * 后台统计对象
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/12 13:51
  */
-public class StatisticsDto {
+public class StatisticsDto implements Serializable {
     /**
      * 文章数
      */

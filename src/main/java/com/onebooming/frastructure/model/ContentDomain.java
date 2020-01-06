@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.model;
 
+import java.io.Serializable;
+
 /**
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/11 19:12
  * @apiNote 文章实体类
  */
-public class ContentDomain {
+public class ContentDomain implements Serializable {
 
     /**
      * 文章的主键编号

@@ -2,6 +2,8 @@ package com.onebooming.frastructure.dto.cond;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
  * 服务器查找条件
  * @author Onebooming
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @date 2019/12/13 15:50
  */
 @Component
-public class PhysicServerCond {
+public class PhysicServerCond implements Serializable {
     private String name;//设备名
     private String area;//设备所在地
     private String datacenter;//数据中心

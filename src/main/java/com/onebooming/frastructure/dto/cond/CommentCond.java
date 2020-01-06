@@ -1,12 +1,14 @@
 package com.onebooming.frastructure.dto.cond;
 
+import java.io.Serializable;
+
 /**
  * 评论查找参数
  * @author Onebooming
  * @version 1.0
  * @date 2019/12/12 14:02
  */
-public class CommentCond {
+public class CommentCond implements Serializable {
     /**
      * 状态
      */

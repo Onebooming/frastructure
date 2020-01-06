@@ -1,5 +1,6 @@
 package com.onebooming.frastructure.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * @author Onebooming
  *
  */
-public class PhysicServerEntity {
+public class PhysicServerEntity implements Serializable {
     private Long id;//设备id
     private String name;//设备名
     private String area;//设备所在地
