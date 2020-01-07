@@ -7,6 +7,7 @@ import com.onebooming.frastructure.model.ContentDomain;
 import com.onebooming.frastructure.model.PhysicServerEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @version 1.0
  * @date 2019/12/13 15:42
  */
+@Component
 @Mapper
 public interface PhysicServerDao {
     /**

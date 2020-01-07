@@ -1,5 +1,7 @@
 package com.onebooming.frastructure.service.phsicServer.impl;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.onebooming.frastructure.constant.ErrorConstant;
@@ -8,6 +10,7 @@ import com.onebooming.frastructure.dto.cond.PhysicServerCond;
 import com.onebooming.frastructure.exception.BusinessException;
 import com.onebooming.frastructure.model.PhysicServerEntity;
 import com.onebooming.frastructure.service.phsicServer.PhysicServerService;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -15,7 +18,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +79,7 @@ public class PhysicServerServiceImpl implements PhysicServerService {
         //字符串序列化器
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        PageInfo<PhysicServerEntity> pageInfo ;
+        PageInfo<PhysicServerEntity> pageInfo;
         //查询缓存
         List<PhysicServerEntity> physicServerEntityList = (List<PhysicServerEntity>) redisTemplate.opsForValue().get(keyPage);
         if (null == physicServerEntityList) {
@@ -169,5 +178,40 @@ public class PhysicServerServiceImpl implements PhysicServerService {
         //实现分页
         PageInfo<PhysicServerEntity> pageInfo = new PageInfo<>(physicServerEntityList);
         return pageInfo;
+    }
+
+    @Override
+    public boolean exportToExcel(PhysicServerCond physicServerCond) {
+        List<PhysicServerEntity> physicServerEntityList = physicServerDao.getPhysicServersByCond(physicServerCond);
+        for (PhysicServerEntity p : physicServerEntityList) {
+            System.out.println(p);
+        }
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("服务器信息", "服务器"),
+                PhysicServerEntity.class, physicServerEntityList);
+        String fileName = "PhysicServers";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String savePath =  fileName + sdf.format(new Date()) + ".xls";
+        workbook.setSheetName(0, fileName);
+        workbook.getSheetAt(0).setDefaultRowHeight((short)21);
+        String localPathPrefix = "file";
+
+        try {
+            File filePath = new File(localPathPrefix);
+            if (!filePath.exists()) {
+                filePath.mkdirs();
+            }
+
+            File localFile = new File(localPathPrefix + File.separator + savePath);
+            OutputStream os = new FileOutputStream(localFile);
+
+            workbook.write(os);
+            os.flush();
+            os.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

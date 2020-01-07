@@ -1,5 +1,8 @@
 package com.onebooming.frastructure.model;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelIgnore;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -9,27 +12,47 @@ import java.util.HashMap;
  *
  */
 public class PhysicServerEntity implements Serializable {
+
+    @ExcelIgnore
     private Long id;//设备id
+    @Excel(name = "设备名", height = 20, width = 30, isImportField = "true_st")
     private String name;//设备名
+    @Excel(name = "设备所在地", height = 20, width = 30, isImportField = "true_st")
     private String area;//设备所在地
+    @Excel(name = "数据中心", height = 20, width = 30, isImportField = "true_st")
     private String datacenter;//数据中心
+    @Excel(name = "机架位置", height = 20, width = 30, isImportField = "true_st")
     private String position;//位置
+    @Excel(name = "高度", height = 20, width = 30, isImportField = "true_st")
     private String height;//高度
+    @Excel(name = "品牌", height = 20, width = 30, isImportField = "true_st")
     private String brand;//品牌
+    @Excel(name = "型号", height = 20, width = 30, isImportField = "true_st")
     private String type;//型号
+    @Excel(name = "序列号", height = 20, width = 30, isImportField = "true_st")
     private String serialNumber;//序列号
+    @Excel(name = "业务IP", height = 20, width = 30, isImportField = "true_st")
     private String bIp;//业务IP
+    @Excel(name = "管理IP", height = 20, width = 30, isImportField = "true_st")
     private String mgmtIp;//管理IP
+    @Excel(name = "CPU名", height = 20, width = 30, isImportField = "true_st")
     private String cpuName;//CPUming
+    @Excel(name = "CPU数量", height = 20, width = 30, isImportField = "true_st")
     private int cpuNum;//cpu数量
     private HashMap<Integer, Integer> memoryMap;//内存条规格及数量
+    @Excel(name = "内存总量", height = 20, width = 30, isImportField = "true_st")
     //key；内存条规模（4G/8G/16G/32G...），value：内存条数量
     private int memorySum;//内存总量
+    @Excel(name = "存储空间总量", height = 20, width = 30, isImportField = "true_st")
     private int storage;//存储空间总量
     private HashMap<String, Integer> diskMap;//磁盘规格及数量
+    @Excel(name = "制造商", height = 20, width = 30, isImportField = "true_st")
     private String manufactor;//制造商
+    @Excel(name = "所属部门", height = 20, width = 30, isImportField = "true_st")
     private String department;//所属部门
+    @Excel(name = "使用者", height = 20, width = 30, isImportField = "true_st")
     private String user;//使用者
+    @Excel(name = "运维人员", height = 20, width = 30, isImportField = "true_st")
     private String maintainor;//运维人员
 
     @Override

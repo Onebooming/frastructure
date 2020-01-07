@@ -27,8 +27,8 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 其他操作 <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="javascript:void(0)" th:onclick="'exportdata();'"
-                                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
-                                                            class="fa fa-trash-o"></i>导出数据（Excel）</a></li>
+                                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5" style="margin:15px"><i
+                                                            class="glyphicon glyphicon-floppy-save"></i> 导出数据（Excel）</a></li>
                                                     <li><a href="#">Another action</a></li>
                                                     <li><a href="#">Something else here</a></li>
                                                     <li role="separator" class="divider"></li>
@@ -40,7 +40,7 @@
                                         </ul>
                                         <form id="searchForm" class="navbar-form navbar-right" style="margin-top: 15px">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Search" id="param" >
+                                                <input type="text" class="form-control" placeholder="Search" id="param" name="param" >
                                             </div>
                                             <button id="search-btn" type="button"  class="btn btn-default">搜索</button>
                                         </form>

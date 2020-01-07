@@ -17,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -248,7 +251,7 @@ public class HardwareController extends BaseController {
      * @return
      */
     @ApiOperation("关键词搜索结果页")
-    @PostMapping(value = "/search")
+    @PostMapping (value = "/search")
     public String searchByParamResult(
             HttpServletRequest request,
             @ApiParam(name = "param", value = "关键词", required = false)
@@ -259,18 +262,28 @@ public class HardwareController extends BaseController {
                     int page,
             @ApiParam(name = "limit", value = "每页数量", required = false)
             @RequestParam(name = "limit", required = false, defaultValue = "15")
-                    int limit
-    ) {
+                    int limit,
+            HttpServletResponse response
+    ) throws IOException {
+        System.out.println(param);
         PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByParm(param,page,limit);
         /**
          * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
          * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
          * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
          */
+
         request.setAttribute("physicServers", physicServers);
+        response.sendRedirect("admin/hardware_list");
         return "admin/hardware_list";
     }
 
+
+    /**
+     * 将数据导入Excel表格
+     * @param request
+     * @return
+     */
     @ApiOperation("导出服务器信息到Excel中")
     @PostMapping(value = "/exportToExcel")
     @ResponseBody
@@ -279,7 +292,10 @@ public class HardwareController extends BaseController {
     ) {
         //physicServerService.getAllPhysicService();
 
-        return APIResponse.success();
+        if(physicServerService.exportToExcel(new PhysicServerCond())){
+            return APIResponse.success();
+        }
+        return APIResponse.fail("文件导出失败");
     }
 
 }

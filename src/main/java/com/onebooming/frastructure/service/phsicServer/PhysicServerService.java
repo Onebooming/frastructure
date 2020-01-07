@@ -30,4 +30,7 @@ public interface PhysicServerService {
     PhysicServerEntity findEntityById(Long id);
 
     PageInfo<PhysicServerEntity> getPhysicServerByParm(String param, int pageNum, int pageSize);
+
+    boolean exportToExcel(PhysicServerCond physicServerCond);
 }
+
