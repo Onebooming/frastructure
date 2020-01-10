@@ -40,7 +40,7 @@
                                         </ul>
                                         <form id="searchForm" class="navbar-form navbar-right" style="margin-top: 15px">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Search" id="param" name="param" >
+                                                <input type="text" class="form-control" placeholder="Search" id="param" >
                                             </div>
                                             <button id="search-btn" type="button"  class="btn btn-default">搜索</button>
                                         </form>
@@ -71,6 +71,7 @@
                                 <th width="15%">操作</th>
                             </tr>
                             </thead>
+
                             <tbody>
                             <th:block th:each="server : ${physicServers.list}">
                                 <tr th:cid="${server.id}">
@@ -207,7 +208,14 @@
         if (param1 && param1 != ''){
             tale.post({
                 url: '/admin/hardware/search',
-                data: {param:param1}
+                data: {param:param1},
+                success: function (result) {
+                    if (result && result.code == 'success') {
+                        tale.alertOkAndReload('模糊查询成功');
+                    } else {
+                        tale.alertError(result.msg || '模糊查询失败');
+                    }
+                }
             });
         }
     });

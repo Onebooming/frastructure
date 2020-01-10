@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -252,7 +253,8 @@ public class HardwareController extends BaseController {
      */
     @ApiOperation("关键词搜索结果页")
     @PostMapping (value = "/search")
-    public String searchByParamResult(
+    @ResponseBody
+    public APIResponse<List<PhysicServerEntity>> searchByParamResult(
             HttpServletRequest request,
             @ApiParam(name = "param", value = "关键词", required = false)
             @RequestParam(name = "param", required = true, defaultValue = "")
@@ -262,9 +264,7 @@ public class HardwareController extends BaseController {
                     int page,
             @ApiParam(name = "limit", value = "每页数量", required = false)
             @RequestParam(name = "limit", required = false, defaultValue = "15")
-                    int limit,
-            HttpServletResponse response
-    ) throws IOException {
+                    int limit) throws IOException {
         System.out.println(param);
         PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByParm(param,page,limit);
         /**
@@ -272,10 +272,12 @@ public class HardwareController extends BaseController {
          * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
          * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
          */
-
+        if(physicServers == null ){
+            return APIResponse.fail("模糊查询失败！");
+        }
+        request.getRemoteAddr();
         request.setAttribute("physicServers", physicServers);
-        response.sendRedirect("admin/hardware_list");
-        return "admin/hardware_list";
+        return APIResponse.success(physicServers);
     }
 
 
