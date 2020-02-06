@@ -126,7 +126,7 @@
                 AND p.mgmtIp = #{mgmtIp, jdbcType=VARCHAR}
             </if>
         </where>
-        ORDER BY p.id DESC
+        ORDER BY p.id ASC
     </select>
     
     <select id="getPhysicServerCount" resultType="java.lang.Long">
@@ -155,6 +155,7 @@
             OR
             p.serialNumber LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
         </where>
+        ORDER BY p.id ASC
     </select>
 
 

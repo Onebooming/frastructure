@@ -21,6 +21,13 @@ public interface PhysicServerService {
      */
     PageInfo<PhysicServerEntity> getPhysicServerByCond(PhysicServerCond physicServerCond, int pageNum, int pageSize);
 
+    /**
+     * 添加缓存功能后的根据条件获取文章列表
+     * @param physicServerCond
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     PageInfo<PhysicServerEntity> getPhysicServerByCond2(PhysicServerCond physicServerCond, int pageNum, int pageSize);
 
     void deleteById(Long id);

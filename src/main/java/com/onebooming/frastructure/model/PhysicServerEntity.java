@@ -249,4 +249,8 @@ public class PhysicServerEntity implements Serializable {
     public void setMaintainor(String maintainor) {
         this.maintainor = maintainor;
     }
+
+
+    public PhysicServerEntity() {
+    }
 }

@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +50,15 @@ public class PhysicServerServiceImpl implements PhysicServerService {
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         PageHelper.startPage(pageNum, pageSize);
         List<PhysicServerEntity> physicServerEntityList = physicServerDao.getPhysicServersByCond(physicServerCond);
+        /**
+         * 查询后的physicServerEntityList根据ID排序
+         */
+        physicServerEntityList.sort(new Comparator<PhysicServerEntity>() {
+            @Override
+            public int compare(PhysicServerEntity o1, PhysicServerEntity o2) {
+                return o1.getId().compareTo(o2.getId());
+            }
+        });
         PageInfo<PhysicServerEntity> pageInfo = new PageInfo<>(physicServerEntityList);
         return pageInfo;
     }
@@ -85,11 +95,15 @@ public class PhysicServerServiceImpl implements PhysicServerService {
         if (null == physicServerEntityList) {
             //缓存为空，则从mysql数据库中查询
             physicServerEntityList = physicServerDao.getPhysicServersByCond(physicServerCond);
-            pageInfo = new PageInfo<>(physicServerEntityList);
-            end = System.currentTimeMillis();
-            System.out.println("从MySql数据库中查询......总计耗时：" + (end - start));
-            //从数据库查询完毕后，将对象存入缓存
-            redisTemplate.opsForValue().set(keyPage, physicServerEntityList);
+            /**
+             * 查询后的physicServerEntityList根据ID排序
+             */
+            physicServerEntityList.sort(new Comparator<PhysicServerEntity>() {
+                @Override
+                public int compare(PhysicServerEntity o1, PhysicServerEntity o2) {
+                    return o1.getId().compareTo(o2.getId());
+                }
+            });
             //将数据库中的每个PhysicServerEntity以key-value的形式逐一放入缓存中
             for (PhysicServerEntity p : physicServerEntityList) {
                 String key = "PhysicServer_" + p.getId();
@@ -98,6 +112,11 @@ public class PhysicServerServiceImpl implements PhysicServerService {
                     redisTemplate.opsForValue().set(key, p, 5, TimeUnit.HOURS);
                 }
             }
+            pageInfo = new PageInfo<>(physicServerEntityList);
+            end = System.currentTimeMillis();
+            System.out.println("从MySql数据库中查询......总计耗时：" + (end - start));
+            //从数据库查询完毕后，将对象存入缓存
+            redisTemplate.opsForValue().set(keyPage, physicServerEntityList);
         } else {
             end = System.currentTimeMillis();
             System.out.println("从缓存中（Redis）查询......总计耗时：" + (end - start));
