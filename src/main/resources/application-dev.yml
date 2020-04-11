@@ -52,7 +52,7 @@ spring:
 
   #Redis配置
   redis:
-    host: localhost  #本地数据库
+#    host: 172.16.10.200  #本地数据库
     port: 6379  #默认端口
     database: 0
     pool:
@@ -61,6 +61,7 @@ spring:
       min-idle: 0
       max-active: 8
     timeout: 300
+    host: localhost
 
 
 mybatis:

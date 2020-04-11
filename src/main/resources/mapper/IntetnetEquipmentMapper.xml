@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onebooming.frastructure.dao.InternetEquipmentDao">
+
+    <sql id="BASE_TABLE">
+      t_internetequipment
+    </sql>
+
+
+
+
+    <!-- 网络设备表的的基本列 -->
+    <sql id="BASE_COLUMN">
+        id,name,role,mgmtIp,assetStatus,description,city,area,position,rackPosition,
+        brand,type,OSVersion,CPUFrequency,memory,serialNumber,powerSuppliesNumber,
+        fanNumber,licenseTerm,monitor,portSpeed,portType,portNumber,ListDate,warrantyPeriod,
+        manufacturer,agent,maintenanceManufacturers,OMDepartment,administrator
+    </sql>
+
+
+
+    <!-- 添加网络设备 -->
+    <insert id="addInternetEquipment" parameterType="com.onebooming.frastructure.model.InternetEquipment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,role,mgmtIp,assetStatus,description,city,area,position,rackPosition,
+            brand,type,OSVersion,CPUFrequency,memory,serialNumber,powerSuppliesNumber,
+            fanNumber,licenseTerm,monitor,portSpeed,portType,portNumber,ListDate,warrantyPeriod,
+            manufacturer,agent,maintenanceManufacturers,OMDepartment,administrator
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{name, jdbcType=VARCHAR},
+            #{role, jdbcType=VARCHAR},
+            #{mgmtIp, jdbcType=VARCHAR},
+            #{assetStatus, jdbcType=VARCHAR},
+            #{description, jdbcType=VARCHAR},
+            #{city, jdbcType=VARCHAR},
+            #{area, jdbcType=VARCHAR},
+            #{position, jdbcType=VARCHAR},
+            #{rackPosition, jdbcType=VARCHAR},
+            #{brand, jdbcType=VARCHAR},
+            #{type, jdbcType=VARCHAR},
+            #{OSVersion, jdbcType=VARCHAR},
+            #{CPUFrequency, jdbcType=FLOAT},
+            #{memory, jdbcType=INTEGER},
+            #{serialNumber, jdbcType=VARCHAR},
+            #{powerSuppliesNumber, jdbcType=INTEGER},
+            #{fanNumber, jdbcType=INTEGER},
+            #{licenseTerm, jdbcType=VARCHAR},
+            #{monitor, jdbcType=VARCHAR},
+            #{portSpeed, jdbcType=FLOAT},
+            #{portType, jdbcType=VARCHAR},
+            #{portNumber, jdbcType=INTEGER},
+            #{ListDate, jdbcType=DATE},
+            #{warrantyPeriod, jdbcType=DATE},
+            #{manufacturer, jdbcType=VARCHAR},
+            #{agent, jdbcType=VARCHAR},
+            #{maintenanceManufacturers, jdbcType=VARCHAR},
+            #{OMDepartment, jdbcType=VARCHAR},
+            #{administrator, jdbcType=VARCHAR}
+        </trim>
+    </insert>
+
+    <!-- 根据ID-删除网络设备 -->
+    <delete id="deleteInternetEquipment">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </delete>
+
+    <!-- 根据名称-删除网络设备 -->
+    <delete id="deleteInternetEquipmentByName">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE name = #{name, jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 更新网络设备信息 -->
+    <update id="updateInternetEquipment" parameterType="com.onebooming.frastructure.model.InternetEquipment">
+        UPDATE
+        <include refid="BASE_TABLE"/>
+        <set>
+            name=#{name},
+            role=#{role},
+            mgmtIp=#{mgmtIp},
+            assetStatus=#{assetStatus},
+            description=#{description},
+            city=#{city},
+            area=#{area},
+            position=#{position},
+            rackPosition=#{rackPosition},
+            brand=#{brand},
+            type=#{type},
+            OSVersion=#{OSVersion},
+            CPUFrequency=#{CPUFrequency},
+            memory=#{memory},
+            serialNumber=#{serialNumber},
+            powerSuppliesNumber=#{powerSuppliesNumber},
+            fanNumber=#{fanNumber},
+            licenseTerm=#{licenseTerm},
+            monitor=#{monitor},
+            portSpeed=#{portSpeed},
+            portType=#{portType},
+            portNumber=#{portNumber},
+            ListDate=#{ListDate},
+            warrantyPeriod=#{warrantyPeriod},
+            manufacturer=#{manufacturer},
+            agent=#{agent},
+            maintenanceManufacturers=#{maintenanceManufacturers},
+            OMDepartment=#{OMDepartment},
+            administrator=#{administrator},
+        </set>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据主键编号获取服务器信息 -->
+    <select id="getInternetEquipmentById" resultType="com.onebooming.frastructure.model.InternetEquipment">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        WHERE p.id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据条件查询服务器 -->
+<!--    <select id="getInternetEquipmentByCond" resultType="com.onebooming.frastructure.model.InternetEquipment"-->
+<!--            parameterType="com.onebooming.frastructure.dto.cond.InternetEquipmentCond">-->
+<!--        SELECT-->
+<!--        <include refid="BASE_COLUMN"/>-->
+<!--        FROM-->
+<!--        <include refid="BASE_TABLE"/> AS p-->
+<!--        <where>-->
+<!--            <if test="name != null">-->
+<!--                AND p.name LIKE CONCAT('%',#{name, jdbcType=VARCHAR},'%')-->
+<!--            </if>-->
+<!--            <if test="area != null">-->
+<!--                AND p.area LIKE CONCAT('%',#{area, jdbcType=VARCHAR},'%')-->
+<!--            </if>-->
+<!--            <if test="datacenter != null">-->
+<!--                AND p.datacenter = #{datacenter, jdbcType=VARCHAR}-->
+<!--            </if>-->
+<!--            <if test="position != null">-->
+<!--                AND p.position LIKE CONCAT('%',#{position, jdbcType=VARCHAR},'%')-->
+<!--            </if>-->
+<!--            <if test="brand != null">-->
+<!--                AND p.brand LIKE CONCAT('%',#{brand, jdbcType=VARCHAR},'%')-->
+<!--            </if>-->
+<!--            <if test="serialNumber != null">-->
+<!--                AND p.serialNumber = #{serialNumber, jdbcType=VARCHAR}-->
+<!--            </if>-->
+<!--            <if test="bIp != null">-->
+<!--                AND p.bIp = #{bIp, jdbcType=VARCHAR}-->
+<!--            </if>-->
+<!--            <if test="mgmtIp != null">-->
+<!--                AND p.mgmtIp = #{mgmtIp, jdbcType=VARCHAR}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        ORDER BY p.id DESC-->
+<!--    </select>-->
+    
+    <select id="getInternetEquipmentCount" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM <include refid="BASE_TABLE"/>
+    </select>
+
+    <!-- 模糊搜索 -->
+    <select id="searchInternetEquipment" resultType="com.onebooming.frastructure.model.InternetEquipment">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        <where>
+            p.name LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.city LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.area LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.position LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.brand LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.mgmtIp LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.serialNumber LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+        </where>
+    </select>
+
+
+    <!-- 查询数据库中全部网络设备信息 -->
+    <select id="getInternetEquipments" resultType="com.onebooming.frastructure.model.InternetEquipment">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+    </select>
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.onebooming.frastructure.controller.admin;
+package com.onebooming.frastructure.controller.hardware;
 
 
 import com.github.pagehelper.PageInfo;
@@ -252,12 +252,11 @@ public class HardwareController extends BaseController {
      * @return
      */
     @ApiOperation("关键词搜索结果页")
-    @PostMapping (value = "/search")
-    @ResponseBody
-    public APIResponse<List<PhysicServerEntity>> searchByParamResult(
+    @GetMapping (value = "/search/{param}")
+    public String searchByParamResult(
             HttpServletRequest request,
             @ApiParam(name = "param", value = "关键词", required = false)
-            @RequestParam(name = "param", required = true, defaultValue = "")
+            @PathVariable(name = "param", required = true)
                     String param,
             @ApiParam(name = "page", value = "页数", required = false)
             @RequestParam(name = "page", required = false, defaultValue = "1")
@@ -267,18 +266,51 @@ public class HardwareController extends BaseController {
                     int limit) throws IOException {
         System.out.println(param);
         PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByParm(param,page,limit);
+//        /**
+//         * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
+//         * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
+//         * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
+//         */
+//        if(physicServers == null ){
+//            return APIResponse.fail("模糊查询失败！");
+//        }
+//        request.getRemoteAddr();
+//        request.setAttribute("physicServers", physicServers);
+//        return APIResponse.success(physicServers);
+
         /**
          * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
          * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
          * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
          */
-        if(physicServers == null ){
-            return APIResponse.fail("模糊查询失败！");
-        }
-        request.getRemoteAddr();
         request.setAttribute("physicServers", physicServers);
-        return APIResponse.success(physicServers);
+        return "admin/hardware_list";
     }
+
+//    @ApiOperation("关键词搜索结果页")
+//    @PostMapping (value = "/search")
+//    @ResponseBody
+//    public String searchByParamResult(
+//            HttpServletRequest request,
+//            @ApiParam(name = "param", value = "关键词", required = false)
+//            @RequestParam(name = "param", required = true, defaultValue = "")
+//                    String param,
+//            @ApiParam(name = "page", value = "页数", required = false)
+//            @RequestParam(name = "page", required = false, defaultValue = "1")
+//                    int page,
+//            @ApiParam(name = "limit", value = "每页数量", required = false)
+//            @RequestParam(name = "limit", required = false, defaultValue = "15")
+//                    int limit) throws IOException {
+//        System.out.println(param);
+//        PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByParm(param,page,limit);
+//        /**
+//         * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
+//         * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
+//         * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
+//         */
+//        request.setAttribute("physicServers", physicServers);
+//        return "/admin/hardware_list";
+//    }
 
 
     /**
