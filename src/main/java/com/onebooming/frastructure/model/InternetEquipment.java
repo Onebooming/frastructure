@@ -80,10 +80,10 @@ public class InternetEquipment implements Serializable {
     @Excel(name = "端口数量", height = 20, width = 30, isImportField = "true_st")
     private Integer portNumber;
     //上架日期
-    @Excel(name = "上架日期", height = 20, width = 30, isImportField = "true_st")
-    private Date ListDate;
+    @Excel(name = "上架日期", height = 20, width = 30, isImportField = "true_st", exportFormat = "yyyy-MM-dd")
+    private Date listDate;
     //维保期限
-    @Excel(name = "维保期限", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "维保期限", height = 20, width = 30, isImportField = "true_st", exportFormat = "yyyy-MM-dd")
     private Date warrantyPeriod;
     //制造商
     @Excel(name = "制造商", height = 20, width = 30, isImportField = "true_st")
@@ -125,7 +125,7 @@ public class InternetEquipment implements Serializable {
         this.portSpeed = portSpeed;
         this.portType = portType;
         this.portNumber = portNumber;
-        ListDate = listDate;
+        this.listDate = listDate;
         this.warrantyPeriod = warrantyPeriod;
         this.manufacturer = manufacturer;
         this.agent = agent;
@@ -322,11 +322,11 @@ public class InternetEquipment implements Serializable {
     }
 
     public Date getListDate() {
-        return ListDate;
+        return listDate;
     }
 
     public void setListDate(Date listDate) {
-        ListDate = listDate;
+        this.listDate = listDate;
     }
 
     public Date getWarrantyPeriod() {
@@ -403,7 +403,7 @@ public class InternetEquipment implements Serializable {
                 ", portSpeed=" + portSpeed +
                 ", portType='" + portType + '\'' +
                 ", portNumber=" + portNumber +
-                ", ListDate=" + ListDate +
+                ", ListDate=" + listDate +
                 ", warrantyPeriod=" + warrantyPeriod +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", agent='" + agent + '\'' +

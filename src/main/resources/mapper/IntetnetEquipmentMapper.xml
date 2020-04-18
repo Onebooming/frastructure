@@ -13,7 +13,7 @@
     <sql id="BASE_COLUMN">
         id,name,role,mgmtIp,assetStatus,description,city,area,position,rackPosition,
         brand,type,OSVersion,CPUFrequency,memory,serialNumber,powerSuppliesNumber,
-        fanNumber,licenseTerm,monitor,portSpeed,portType,portNumber,ListDate,warrantyPeriod,
+        fanNumber,licenseTerm,monitor,portSpeed,portType,portNumber,listDate,warrantyPeriod,
         manufacturer,agent,maintenanceManufacturers,OMDepartment,administrator
     </sql>
 
@@ -26,7 +26,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             name,role,mgmtIp,assetStatus,description,city,area,position,rackPosition,
             brand,type,OSVersion,CPUFrequency,memory,serialNumber,powerSuppliesNumber,
-            fanNumber,licenseTerm,monitor,portSpeed,portType,portNumber,ListDate,warrantyPeriod,
+            fanNumber,licenseTerm,monitor,portSpeed,portType,portNumber,listDate,warrantyPeriod,
             manufacturer,agent,maintenanceManufacturers,OMDepartment,administrator
         </trim>
         <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
@@ -52,7 +52,7 @@
             #{portSpeed, jdbcType=FLOAT},
             #{portType, jdbcType=VARCHAR},
             #{portNumber, jdbcType=INTEGER},
-            #{ListDate, jdbcType=DATE},
+            #{listDate, jdbcType=DATE},
             #{warrantyPeriod, jdbcType=DATE},
             #{manufacturer, jdbcType=VARCHAR},
             #{agent, jdbcType=VARCHAR},
@@ -103,7 +103,7 @@
             portSpeed=#{portSpeed},
             portType=#{portType},
             portNumber=#{portNumber},
-            ListDate=#{ListDate},
+            listDate=#{listDate},
             warrantyPeriod=#{warrantyPeriod},
             manufacturer=#{manufacturer},
             agent=#{agent},

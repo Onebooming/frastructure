@@ -10,6 +10,7 @@ import com.onebooming.frastructure.dto.cond.PhysicServerCond;
 import com.onebooming.frastructure.exception.BusinessException;
 import com.onebooming.frastructure.model.PhysicServerEntity;
 import com.onebooming.frastructure.service.phsicServer.PhysicServerService;
+import com.onebooming.frastructure.utils.ExcelUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -208,29 +209,6 @@ public class PhysicServerServiceImpl implements PhysicServerService {
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("服务器信息", "服务器"),
                 PhysicServerEntity.class, physicServerEntityList);
         String fileName = "PhysicServers";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String savePath =  fileName + sdf.format(new Date()) + ".xls";
-        workbook.setSheetName(0, fileName);
-        workbook.getSheetAt(0).setDefaultRowHeight((short)21);
-        String localPathPrefix = "file";
-
-        try {
-            File filePath = new File(localPathPrefix);
-            if (!filePath.exists()) {
-                filePath.mkdirs();
-            }
-
-            File localFile = new File(localPathPrefix + File.separator + savePath);
-            OutputStream os = new FileOutputStream(localFile);
-
-            workbook.write(os);
-            os.flush();
-            os.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
+        return ExcelUtil.exportToExcet(workbook,fileName);
     }
 }

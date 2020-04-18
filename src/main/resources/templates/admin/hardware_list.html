@@ -19,16 +19,16 @@
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="col-md-offset-12 collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#">硬件管理</a></li>
-                                            <li><a th:href="@{/advance}">服务器</a></li>
+                                            <li><a th:href="@{'/admin/hardware/graph'}">资源图显</a></li>
+                                            <li><a th:href="@{'/admin/hardware'}">服务器</a></li>
                                             <li><a th:href="@{'/admin/iEquipment'}">网络设备</a></li>
                                             <li><a href="#">存储设备</a></li>
                                             <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 其他操作 <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="javascript:void(0)" th:onclick="'exportdata();'"
-                                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5" style="margin:15px"><i
-                                                            class="glyphicon glyphicon-floppy-save"></i> 导出数据（Excel）</a></li>
+                                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5" style="margin-left: 5px; margin-right: 5px; margin-top: 5px;margin-bottom: 5px" ><i
+                                                            class="glyphicon glyphicon-floppy-save" style="size: 25px"></i> 导出数据（Excel）</a></li>
                                                     <li><a href="#">Another action</a></li>
                                                     <li><a href="#">Something else here</a></li>
                                                     <li role="separator" class="divider"></li>
@@ -42,10 +42,10 @@
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Search" id="param" name="param" >
                                             </div>
-                                            <a th:href="@{'/admin/hardware/search/'}" class="btn btn-warning btn-sm waves-effect waves-light m-b-5">
-                                                <i class="fa fa-rocket"></i> <span>搜索</span></a>
-                                            <button id="search-btn" type="button"  class="btn btn-default">搜索2</button>
+                                            <button id="search-btn" type="button"  class="btn btn-default">搜索</button>
                                         </form>
+
+
                                     </div><!-- /.navbar-collapse -->
                                 </div><!-- /.container-fluid -->
                             </nav>
@@ -56,7 +56,7 @@
 
 
                     <div class="col-md-12" style="overflow: auto">
-                        <table class="table table-striped table-bordered" id="servertable" >
+                        <table class="table table-striped table-bordered" id="servertable">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -71,7 +71,6 @@
                                 <th width="15%">操作</th>
                             </tr>
                             </thead>
-
                             <tbody>
                             <th:block th:each="server : ${physicServers.list}">
                                 <tr th:cid="${server.id}">
@@ -85,6 +84,12 @@
                                         </th:block>
                                         <th:block th:if="${server.datacenter == 'B9互联网'}">
                                             <span class="label label-purple">B9互联网</span>
+                                        </th:block>
+                                        <th:block th:if="${server.datacenter == 'B4'}">
+                                            <span class="label label-primary">B4</span>
+                                        </th:block>
+                                        <th:block th:if="${server.datacenter == 'HQ'}">
+                                            <span class="label label-default">HQ</span>
                                         </th:block>
                                     </td>
                                     <td><th:block th:text="${server.mgmtIp}"/></td>
@@ -200,31 +205,12 @@
             }
         });
     }
-
-
-
+    // 搜索框实现，得到搜索结果，并返回给页面
     $('#search-btn').click(function () {
         var param1 = $('#searchForm #param').val();
-        if (param1 && param1 != ''){
-            url = "/admin/hardware/search/"+param1;
-
-            window.location.href=url;
-            // tale.get({
-            //     url: '/admin/hardware/search/'+param1,
-            //     //data: {param:param1},
-            //     // success: function (result) {
-            //     //     if (result && result.code == 'success') {
-            //     //         tale.alertOkAndReload('模糊查询成功');
-            //     //     } else {
-            //     //         tale.alertError(result.msg || '模糊查询失败');
-            //     //     }
-            //     // }
-            // });
-        }
+        url = "/admin/hardware/search/"+param1;
+        window.location.href = url;
     });
-
-
-
 
     <!-- EDIT modal-->
     function updatePhysicServer(id) {
@@ -245,7 +231,6 @@
             }
         });
     }
-
     // 导出数据到Excel中
     function exportdata() {
         tale.alertConfirm({
@@ -264,9 +249,6 @@
             }
         });
     }
-
-
-
 </script>
 
 

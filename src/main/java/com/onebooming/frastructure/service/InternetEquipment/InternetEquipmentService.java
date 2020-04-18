@@ -28,7 +28,7 @@ public interface InternetEquipmentService {
     PageInfo<InternetEquipment> getInternetEquipmentByParamPage(String param, int pageNum, int pageSize);
 
 
-    boolean exportToExcel(InternetEquipmentCond InternetEquipmentCond);
+    boolean exportToExcel(InternetEquipment internetEquipment);
 
-    void save(Map<String, String> params) throws ParseException;
+    boolean update(Map<String, String> params) throws ParseException;
 }

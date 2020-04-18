@@ -3,7 +3,6 @@ package com.onebooming.frastructure.controller.hardware;
 import com.github.pagehelper.PageInfo;
 import com.onebooming.frastructure.constant.LogActions;
 import com.onebooming.frastructure.controller.BaseController;
-import com.onebooming.frastructure.dto.cond.InternetEquipmentCond;
 import com.onebooming.frastructure.model.InternetEquipment;
 import com.onebooming.frastructure.service.InternetEquipment.InternetEquipmentService;
 import com.onebooming.frastructure.service.log.LogService;
@@ -96,10 +95,14 @@ public class InternetEquipmentController extends BaseController {
     public APIResponse save(
             HttpServletRequest request,
             @ApiParam(name = "InternetEquipment", value = "网络设备参数", required = true)
-            @RequestBody Map<String,String> params
+            @RequestParam Map params
             ) throws ParseException {
-        internetEquipmentService.save(params);
-        return APIResponse.success();
+        boolean result = internetEquipmentService.update(params); //更新设备信息
+        if(result == true){
+            return APIResponse.success();
+        }
+        else return APIResponse.fail("failed");
+
     }
 
 
@@ -151,7 +154,7 @@ public class InternetEquipmentController extends BaseController {
             HttpServletRequest request
     ) {
 
-        if(internetEquipmentService.exportToExcel(new InternetEquipmentCond())){
+        if(internetEquipmentService.exportToExcel(new InternetEquipment())){
             return APIResponse.success();
         }
         return APIResponse.fail("文件导出失败");

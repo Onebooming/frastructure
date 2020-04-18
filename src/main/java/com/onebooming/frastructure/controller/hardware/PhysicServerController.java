@@ -17,10 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 /**
@@ -29,7 +27,7 @@ import java.util.List;
 @Api("设备表单")
 @Controller
 @RequestMapping("/admin/hardware")
-public class HardwareController extends BaseController {
+public class PhysicServerController extends BaseController {
 
 
     @Autowired
@@ -94,27 +92,6 @@ public class HardwareController extends BaseController {
             @ApiParam(name = "department", value = "部门", required = false)
             @RequestParam(name = "department", required = false)
                     String department
-            /*@ApiParam(name = "position", value = "位置", required = true)
-            @RequestParam(name = "position", required = true)
-                    String position,
-            @ApiParam(name = "height", value = "高度", required = true)
-            @RequestParam(name = "height", required = true)
-                    String height,
-            @ApiParam(name = "brand", value = "品牌", required = true)
-            @RequestParam(name = "brand", required = true)
-                    String brand,
-            @ApiParam(name = "type", value = "型号", required = false)
-            @RequestParam(name = "type", required = false)
-                    String type,
-            @ApiParam(name = "serialNumber", value = "序列号", required = false)
-            @RequestParam(name = "serialNumber", required = false, defaultValue = "默认分类")
-                    String serialNumber,
-            @ApiParam(name = "bIp", value = "业务IP", required = true)
-            @RequestParam(name = "bIp", required = true)
-                    String bIp,
-            @ApiParam(name = "mgmtIp", value = "管理IP", required = true)
-            @RequestParam(name = "mgmtIp", required = true)
-                    String mgmtIp*/
     ) {
         PhysicServerEntity physicServerEntity = new PhysicServerEntity();
         physicServerEntity.setId(id);
@@ -122,15 +99,6 @@ public class HardwareController extends BaseController {
         physicServerEntity.setArea(area);
         physicServerEntity.setDatacenter(datacenter);
         physicServerEntity.setDepartment(department);
-//        physicServerEntity.setPosition(position);
-//        physicServerEntity.setHeight(height);
-//        physicServerEntity.setBrand(brand);
-//        physicServerEntity.setType(type);
-//        physicServerEntity.setSerialNumber(serialNumber);
-//        physicServerEntity.setbIp(bIp);
-//        physicServerEntity.setMgmtIp(mgmtIp);
-
-
         physicServerService.updatePhysicServer(physicServerEntity);
         return APIResponse.success();
     }
@@ -287,30 +255,6 @@ public class HardwareController extends BaseController {
         return "admin/hardware_list";
     }
 
-//    @ApiOperation("关键词搜索结果页")
-//    @PostMapping (value = "/search")
-//    @ResponseBody
-//    public String searchByParamResult(
-//            HttpServletRequest request,
-//            @ApiParam(name = "param", value = "关键词", required = false)
-//            @RequestParam(name = "param", required = true, defaultValue = "")
-//                    String param,
-//            @ApiParam(name = "page", value = "页数", required = false)
-//            @RequestParam(name = "page", required = false, defaultValue = "1")
-//                    int page,
-//            @ApiParam(name = "limit", value = "每页数量", required = false)
-//            @RequestParam(name = "limit", required = false, defaultValue = "15")
-//                    int limit) throws IOException {
-//        System.out.println(param);
-//        PageInfo<PhysicServerEntity> physicServers = physicServerService.getPhysicServerByParm(param,page,limit);
-//        /**
-//         * setAttribute这个方法，在JSP内置对象session和request都有这个方法，
-//         * 这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
-//         * request.setAttribute("physicServers", physicServers)这个方法是将physicServers这个对象保存在request作用域中，然后在转发进入的页面就可以获取到你的值
-//         */
-//        request.setAttribute("physicServers", physicServers);
-//        return "/admin/hardware_list";
-//    }
 
 
     /**
