@@ -80,7 +80,7 @@ public class InternetEquipmentServiceImpl implements InternetEquipmentService {
 
     @Override
     public boolean exportToExcel(InternetEquipment internetEquipment) {
-        List<InternetEquipment> internetEquipmentList = internetEquipmentDao.getInternetEquipments();
+         List<InternetEquipment> internetEquipmentList = internetEquipmentDao.getInternetEquipments();
 
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("网络设备信息", "网络设备"),
                 InternetEquipment.class, internetEquipmentList);

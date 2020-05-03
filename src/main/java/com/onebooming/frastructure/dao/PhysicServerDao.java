@@ -76,4 +76,11 @@ public interface PhysicServerDao {
      */
     List<PhysicServerEntity> searchPhysicServer(@Param("param") String param);
 
+    /**
+     * 根据服务器名称获取与之连接的交换机
+     * @param serverName
+     * @return
+     */
+    List<String> searchSwitchNameList(@Param("serverName") String serverName);
+
 }

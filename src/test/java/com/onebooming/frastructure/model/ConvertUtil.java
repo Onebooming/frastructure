@@ -44,4 +44,18 @@ public class ConvertUtil {
         return ie;
     }
 
+    public static void main(String[] args) {
+        String s = "id,name,type,mgmtIp,bIp,city,area,position,usagew,brand,serialNumber,role,fcPortsNumber,\n" +
+                "fcPortsVelocity,ipPortsNumber,ipPortsVelocity,SASspecification,SASnumber,SAScapacity,\n" +
+                "SATAspecification,SATAnumber,SATAcapacity,SSDspecification,SSDnumber,SSDcapacity,assetStatus,description,\n" +
+                "listDate,warrantyPeriod,manufacturer,maintenanceManufacturers,\n" +
+                "agent,OMDepartment,administrator";
+        String[] split = s.split(",");
+        StringBuilder sb = new StringBuilder();
+        for (String s1 : split) {
+            sb.append(s1).append("=#{").append(s1).append("},");
+        }
+        System.out.println(sb.toString());
+    }
+
 }

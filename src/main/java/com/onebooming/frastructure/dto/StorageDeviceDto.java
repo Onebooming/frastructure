@@ -1,4 +1,4 @@
-package com.onebooming.frastructure.model;
+package com.onebooming.frastructure.dto;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 
@@ -11,109 +11,109 @@ import java.util.Date;
  * @date 2020-04-18 16:17
  * @ApiNote
  */
-public class StorageDevice implements Serializable {
+public class StorageDeviceDto implements java.io.Serializable {
     //    序号
-    @Excel(name = "序号", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "序号",isImportField = "true_st")
     private Long id;
     //    设备ID
-    @Excel(name = "设备ID", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "设备ID",isImportField = "true_st")
     private String name;
     //    型号
-    @Excel(name = "型号", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "型号",isImportField = "true_st")
     private String type;
     //    管理IP
-    @Excel(name = "管理IP", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "管理IP",isImportField = "true_st")
     private String mgmtIp;
     //    业务IP
-    @Excel(name = "业务IP", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "业务IP",isImportField = "true_st")
     private String bIp;
     //    地区
-    @Excel(name = "地区", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "地区",isImportField = "true_st")
     private String city;
     //    地点
-    @Excel(name = "地点", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "地点",isImportField = "true_st")
     private String area;
     //    位置
-    @Excel(name = "位置", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "位置",isImportField = "true_st")
     private String position;
     //    用途
-    @Excel(name = "用途", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "用途",isImportField = "true_st")
     private String usage;
     //    品牌
-    @Excel(name = "品牌", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "品牌",isImportField = "true_st")
     private String brand;
     //    序列号
-    @Excel(name = "序列号", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "序列号",isImportField = "true_st")
     private String serialNumber;
     //    设备角色
-    @Excel(name = "设备角色", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "设备角色",isImportField = "true_st")
     private String role;
     //    HBA-FC卡端口数
-    @Excel(name = "HBA-FC卡端口数", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "HBA-FC卡端口数",isImportField = "true_st")
     private String fcPortsNumber;
     //    HBA-FC卡速率
-    @Excel(name = "HBA-FC卡速率", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "HBA-FC卡速率",isImportField = "true_st")
     private String fcPortsVelocity;
     //    HBA-IP卡端口数
-    @Excel(name = "HBA-IP卡端口数", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "HBA-IP卡端口数",isImportField = "true_st")
     private String ipPortsNumber;
     //    HBA-IP卡速率
-    @Excel(name = "HBA-IP卡速率", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "HBA-IP卡速率",isImportField = "true_st")
     private String ipPortsVelocity;
     //    SAS磁盘大小
-    @Excel(name = "SAS磁盘大小", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SAS磁盘大小",isImportField = "true_st")
     private String SASspecification;
     //    SAS磁盘数量/个
-    @Excel(name = "SAS磁盘数量/个", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SAS磁盘数量/个",isImportField = "true_st")
     private String SASnumber;
     //    SAS磁盘总容量
-    @Excel(name = "SAS磁盘总容量", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SAS磁盘总容量",isImportField = "true_st")
     private String SAScapacity;
     //    SATA磁盘大小
-    @Excel(name = "SATA磁盘大小", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SATA磁盘大小",isImportField = "true_st")
     private String SATAspecification;
     //    SATA磁盘数量/个
-    @Excel(name = "SATA磁盘数量/个", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SATA磁盘数量/个",isImportField = "true_st")
     private String SATAnumber;
     //    SATA磁盘总容量
-    @Excel(name = "SATA磁盘总容量", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SATA磁盘总容量",isImportField = "true_st")
     private String SATAcapacity;
     //    SSD磁盘大小
-    @Excel(name = "SSD磁盘大小", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SSD磁盘大小",isImportField = "true_st")
     private String SSDspecification;
     //    SSD磁盘数量/个
-    @Excel(name = "SSD磁盘数量/个", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SSD磁盘数量/个",isImportField = "true_st")
     private String SSDnumber;
     //    SSD磁盘总容量
-    @Excel(name = "SSD磁盘总容量", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "SSD磁盘总容量",isImportField = "true_st")
     private String SSDcapacity;
 
     //    资产状态
-    @Excel(name = "资产状态", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "资产状态",isImportField = "true_st")
     private String assetStatus;
     //    描述
-    @Excel(name = "描述", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "描述",isImportField = "true_st")
     private String description;
     //    上架日期
-    @Excel(name = "上架日期", height = 20, width = 30, isImportField = "true_st", exportFormat = "yyyy-MM-dd")
+    @Excel(name = "上架日期",isImportField = "true_st",importFormat = "yyyy/MM/dd")
     private Date listDate;
     //    维保期限
-    @Excel(name = "维保期限", height = 20, width = 30, isImportField = "true_st", exportFormat = "yyyy-MM-dd")
+    @Excel(name = "维保期限",isImportField = "true_st", importFormat  = "yyyy/MM/dd")
     private Date warrantyPeriod;
     //    制造商
-    @Excel(name = "制造商", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "制造商",isImportField = "true_st")
     private String manufacturer;
     //    维保厂商
-    @Excel(name = "维保厂商", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "维保厂商",isImportField = "true_st")
     private String maintenanceManufacturers;
     //    代理商
-    @Excel(name = "代理商", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "代理商",isImportField = "true_st")
     private String agent;
     //    运维部门
-    @Excel(name = "运维部门", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "运维部门",isImportField = "true_st")
     private String OMDepartment;
     //    硬件管理员
-    @Excel(name = "硬件管理员", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "硬件管理员",isImportField = "true_st")
     private String administrator;
 
     public Long getId() {
@@ -386,5 +386,62 @@ public class StorageDevice implements Serializable {
 
     public void setAdministrator(String administrator) {
         this.administrator = administrator;
+    }
+
+    public static void main(String[] args) {
+
+        String s = "id,name,type,mgmtIp,bIp,city,area,position,usage,brand,serialNumber,role,fcPortsNumber," +
+                "fcPortsVelocity,ipPortsNumber,ipPortsVelocity,SASspecification,SASnumber,SAScapacity"
+                +",SATAspecification,SATAnumber,SATAcapacity,SSDspecification,SSDnumber,SSDcapacity,assetStatus,description,listDate,warrantyPeriod,manufacturer,maintenanceManufacturers," +
+                "agent,OMDepartment,administrator";
+        String[] split = s.split(",");
+        StringBuilder sb = new StringBuilder();
+        System.out.println(split.length);
+        for (String s1 : split) {
+            sb.append("#{").append(s1).append(", jdbcType=VARCHAR},");
+            // #{name, jdbcType=VARCHAR},
+        }
+        System.out.println(sb.toString());
+
+    }
+
+    @Override
+    public String toString() {
+        return "StorageDeviceDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", mgmtIp='" + mgmtIp + '\'' +
+                ", bIp='" + bIp + '\'' +
+                ", city='" + city + '\'' +
+                ", area='" + area + '\'' +
+                ", position='" + position + '\'' +
+                ", usage='" + usage + '\'' +
+                ", brand='" + brand + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", fcPortsNumber='" + fcPortsNumber + '\'' +
+                ", fcPortsVelocity='" + fcPortsVelocity + '\'' +
+                ", ipPortsNumber='" + ipPortsNumber + '\'' +
+                ", ipPortsVelocity='" + ipPortsVelocity + '\'' +
+                ", SASspecification='" + SASspecification + '\'' +
+                ", SASnumber='" + SASnumber + '\'' +
+                ", SAScapacity='" + SAScapacity + '\'' +
+                ", SATAspecification='" + SATAspecification + '\'' +
+                ", SATAnumber='" + SATAnumber + '\'' +
+                ", SATAcapacity='" + SATAcapacity + '\'' +
+                ", SSDspecification='" + SSDspecification + '\'' +
+                ", SSDnumber='" + SSDnumber + '\'' +
+                ", SSDcapacity='" + SSDcapacity + '\'' +
+                ", assetStatus='" + assetStatus + '\'' +
+                ", description='" + description + '\'' +
+                ", listDate=" + listDate +
+                ", warrantyPeriod=" + warrantyPeriod +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", maintenanceManufacturers='" + maintenanceManufacturers + '\'' +
+                ", agent='" + agent + '\'' +
+                ", OMDepartment='" + OMDepartment + '\'' +
+                ", administrator='" + administrator + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='设备管理',active='iEquipment'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='设备管理',active='hardware'">
 <header th:replace="admin/header::headerFragment(${title},${active})">
 </header>
 <body class="fixed-left">
@@ -56,7 +56,7 @@
 
 
                     <div class="col-md-12" style="overflow: auto">
-                        <table class="table table-striped table-bordered" id="servertable">
+                        <table class="table table-striped table-bordered" id="storagetable">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -72,55 +72,55 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <th:block th:each="iequipment : ${internetEquipments.list}">
-                                <tr th:cid="${iequipment.id}">
-                                    <td><th:block th:text="${iequipment.id}"/></td>
+                            <th:block th:each="storagedevice : ${storagedevices.list}">
+                                <tr th:cid="${storagedevice.id}">
+                                    <td><th:block th:text="${storagedevice.id}"/></td>
                                     <td>
-                                        <a th:href="@{'/admin/iEquipment/profile/'+${iequipment.id}}" th:text="${iequipment.name}"></a>
+                                        <a th:href="@{'/admin/storagedevice/profile/'+${storagedevice.id}}" th:text="${storagedevice.name}"></a>
                                     </td>
                                     <td>
-                                        <th:block th:if="${iequipment.area == 'B9企业'}">
+                                        <th:block th:if="${storagedevice.area == 'B9企业'}">
                                             <span class="label label-success">B9企业</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.area == 'B9互联网'}">
+                                        <th:block th:if="${storagedevice.area == 'B9互联网'}">
                                             <span class="label label-purple">B9互联网</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.area == 'B4'}">
+                                        <th:block th:if="${storagedevice.area == 'B4'}">
                                             <span class="label label-danger">B4</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.area == 'HQ'}">
+                                        <th:block th:if="${storagedevice.area == 'HQ'}">
                                             <span class="label label-pink">HQ</span>
                                         </th:block>
                                     </td>
-                                    <td><th:block th:text="${iequipment.mgmtIp}"/></td>
-                                    <td><th:block th:text="${iequipment.serialNumber}"/></td>
-                                    <td><th:block th:text="${iequipment.type}"/></td>
+                                    <td><th:block th:text="${storagedevice.mgmtIp}"/></td>
+                                    <td><th:block th:text="${storagedevice.serialNumber}"/></td>
+                                    <td><th:block th:text="${storagedevice.type}"/></td>
                                     <td>
-                                        <th:block th:if="${iequipment.OMDepartment == '基础设施部'}">
+                                        <th:block th:if="${storagedevice.OMDepartment == '基础设施部'}">
                                             <span class="label label-success">基础设施部</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.OMDepartment == '信息安全B部' }">
+                                        <th:block th:if="${storagedevice.OMDepartment == '信息安全B部' }">
                                             <span class="label label-default">信息安全B部</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.OMDepartment == '系统运维部' }">
+                                        <th:block th:if="${storagedevice.OMDepartment == '系统运维部' }">
                                             <span class="label label-default">系统运维部</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.OMDepartment == '技术平台部' }">
+                                        <th:block th:if="${storagedevice.OMDepartment == '技术平台部' }">
                                             <span class="label label-primary">技术平台部</span>
                                         </th:block>
-                                        <th:block th:if="${iequipment.OMDepartment == '*' }">
+                                        <th:block th:if="${storagedevice.OMDepartment == '*' }">
                                             <span class="label label-pink">未知部门</span>
                                         </th:block>
                                     </td>
-                                    <td><th:block th:text="${iequipment.city}"/></td>
-                                    <td><th:block th:text="${iequipment.position}"/></td>
+                                    <td><th:block th:text="${storagedevice.city}"/></td>
+                                    <td><th:block th:text="${storagedevice.position}"/></td>
                                     <td>
-                                        <a  th:href="@{'/admin/iEquipment/profile/'+${iequipment.id}}"  class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
+                                        <a  th:href="@{'/admin/storagedevice/profile/'+${storagedevice.id}}"  class="btn btn-primary btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-edit"></i> <span>编辑</span></a>
-                                        <a href="javascript:void(0)" th:onclick="'delPost('+${iequipment.id}+');'"
+                                        <a href="javascript:void(0)" th:onclick="'delPost('+${storagedevice.id}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-trash-o"></i> <span>删除</span></a>
-                                        <a th:href="@{'/admin/iEquipment/profile/'+${iequipment.id}}" class="btn btn-warning btn-sm waves-effect waves-light m-b-5">
+                                        <a th:href="@{'/admin/storagedevice/profile/'+${storagedevice.id}}" class="btn btn-warning btn-sm waves-effect waves-light m-b-5">
                                             <i class="fa fa-rocket"></i> <span>预览</span></a>
                                     </td>
                                 </tr>
@@ -128,12 +128,12 @@
 
                             </tbody>
                         </table>
-                        <div th:replace="comm/macros :: pageAdminNav(${internetEquipments})"></div>
+                        <div th:replace="comm/macros :: pageAdminNav(${storagedevices})"></div>
                     </div>
                     <!-- 模态框示例（Modal） -->
                     <div class="col-xl-8 col-lg-7">
                         <div class="myForm">
-                            <form th:action="@{/admin/iEquipment/modify}" th:method="post">
+                            <form th:action="@{/admin/storagedevice/modify}" th:method="post">
                                 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -192,7 +192,7 @@
             title:'确定删除该网络设备吗?',
             then: function () {
                 tale.post({
-                    url : '/admin/iEquipment/delete',
+                    url : '/admin/storagedevice/delete',
                     data: {id: id},
                     success: function (result) {
                         if(result && result.code == 'success'){
@@ -208,7 +208,7 @@
     // 搜索框实现，得到搜索结果，并返回给页面
     $('#search-btn').click(function () {
         var param1 = $('#searchForm #param').val();
-        url = "/admin/iEquipment/search/"+param1;
+        url = "/admin/storagedevice/search/"+param1;
         window.location.href = url;
     });
 
@@ -218,7 +218,7 @@
             title: '确定修改服务器参数吗?',
             then: function () {
                 tale.post({
-                    url: '/admin/iEquipment/modify',
+                    url: '/admin/storagedevice/modify',
                     data: {id: id, name: name, area:area, datacenter:datacenter, department:department},
                     success: function (result) {
                         if (result && result.code == 'success') {
@@ -237,7 +237,7 @@
             title:'确定导出该服务器吗?',
             then: function () {
                 tale.post({
-                    url : '/admin/iEquipment/exportToExcel',
+                    url : '/admin/storagedevice/exportToExcel',
                     success: function (result) {
                         if(result && result.code == 'success'){
                             tale.alertOkAndReload('服务器数据导出成功');

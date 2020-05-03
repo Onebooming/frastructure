@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onebooming.frastructure.dao.StorageDeviceDao">
+
+    <sql id="BASE_TABLE">
+      t_storagedevice
+    </sql>
+
+
+
+
+    <!-- 存储设备表的的基本列 -->
+    <sql id="BASE_COLUMN">
+        id,name,type,mgmtIp,bIp,city,area,position,usagew,brand,serialNumber,role,fcPortsNumber,
+        fcPortsVelocity,ipPortsNumber,ipPortsVelocity,SASspecification,SASnumber,SAScapacity,
+        SATAspecification,SATAnumber,SATAcapacity,SSDspecification,SSDnumber,SSDcapacity,assetStatus,description,
+        listDate,warrantyPeriod,manufacturer,maintenanceManufacturers,
+        agent,OMDepartment,administrator
+    </sql>
+
+
+
+    <!-- 添加存储设备 -->
+    <insert id="addStorageDevice" parameterType="com.onebooming.frastructure.dto.StorageDeviceDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,
+            type,
+            mgmtIp,
+            bIp,
+            city,
+            area,
+            position,
+            usagew,
+            brand,
+            serialNumber,
+            role,
+            fcPortsNumber,
+            fcPortsVelocity,
+            ipPortsNumber,
+            ipPortsVelocity,
+            SASspecification,
+            SASnumber,
+            SAScapacity,
+            SATAspecification,
+            SATAnumber,
+            SATAcapacity,
+            SSDspecification,
+            SSDnumber,
+            SSDcapacity,
+            assetStatus,
+            description,
+            listDate,
+            warrantyPeriod,
+            manufacturer,
+            maintenanceManufacturers,
+            agent,
+            OMDepartment,
+            administrator
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{name, jdbcType=VARCHAR},
+            #{type, jdbcType=VARCHAR},
+            #{mgmtIp, jdbcType=VARCHAR},
+            #{bIp, jdbcType=VARCHAR},
+            #{city, jdbcType=VARCHAR},
+            #{area, jdbcType=VARCHAR},
+            #{position, jdbcType=VARCHAR},
+            #{usage, jdbcType=VARCHAR},
+            #{brand, jdbcType=VARCHAR},
+            #{serialNumber, jdbcType=VARCHAR},
+            #{role, jdbcType=VARCHAR},
+            #{fcPortsNumber, jdbcType=VARCHAR},
+            #{fcPortsVelocity, jdbcType=VARCHAR},
+            #{ipPortsNumber, jdbcType=VARCHAR},
+            #{ipPortsVelocity, jdbcType=VARCHAR},
+            #{SASspecification, jdbcType=VARCHAR},
+            #{SASnumber, jdbcType=VARCHAR},
+            #{SAScapacity, jdbcType=VARCHAR},
+            #{SATAspecification, jdbcType=VARCHAR},
+            #{SATAnumber, jdbcType=VARCHAR},
+            #{SATAcapacity, jdbcType=VARCHAR},
+            #{SSDspecification, jdbcType=VARCHAR},
+            #{SSDnumber, jdbcType=VARCHAR},
+            #{SSDcapacity, jdbcType=VARCHAR},
+            #{assetStatus, jdbcType=VARCHAR},
+            #{description, jdbcType=VARCHAR},
+            #{listDate },
+            #{warrantyPeriod},
+            #{manufacturer, jdbcType=VARCHAR},
+            #{maintenanceManufacturers, jdbcType=VARCHAR},
+            #{agent, jdbcType=VARCHAR},
+            #{OMDepartment, jdbcType=VARCHAR},
+            #{administrator, jdbcType=VARCHAR}
+        </trim>
+    </insert>
+
+    <!-- 根据ID-删除存储设备 -->
+    <delete id="deleteStorageDevice">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </delete>
+
+    <!-- 根据名称-删除存储设备 -->
+    <delete id="deleteStorageDeviceByName">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE name = #{name, jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 更新存储设备信息 -->
+    <update id="updateStorageDevice" parameterType="com.onebooming.frastructure.model.StorageDevice">
+        UPDATE
+        <include refid="BASE_TABLE"/>
+        <set>
+            name=#{name},type=#{type},mgmtIp=#{mgmtIp},bIp=#{bIp},city=#{city},area=#{area},position=#{position},usagew=#{usage},brand=#{brand},serialNumber=#{serialNumber},role=#{role},fcPortsNumber=#{fcPortsNumber},
+            fcPortsVelocity=#{fcPortsVelocity},ipPortsNumber=#{ipPortsNumber},ipPortsVelocity=#{ipPortsVelocity},SASspecification=#{SASspecification},SASnumber=#{SASnumber},SAScapacity=#{SAScapacity},
+            SATAspecification=#{SATAspecification},SATAnumber=#{SATAnumber},SATAcapacity=#{SATAcapacity},SSDspecification=#{SSDspecification},SSDnumber=#{SSDnumber},SSDcapacity=#{SSDcapacity},assetStatus=#{assetStatus},description=#{description},
+            listDate=#{listDate},warrantyPeriod=#{warrantyPeriod},manufacturer=#{manufacturer},maintenanceManufacturers=#{maintenanceManufacturers},
+            agent=#{agent},OMDepartment=#{OMDepartment},administrator=#{administrator}
+        </set>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据主键编号获取存储设备信息 -->
+    <select id="getStorageDeviceById" resultType="com.onebooming.frastructure.model.StorageDevice">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        WHERE p.id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <select id="getStorageDeviceCount" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM <include refid="BASE_TABLE"/>
+    </select>
+
+    <!-- 模糊搜索 -->
+    <select id="searchStorageDevice" resultType="com.onebooming.frastructure.model.StorageDevice">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/> AS p
+        <where>
+            p.name LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.city LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.area LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.position LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.brand LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.mgmtIp LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+            OR
+            p.serialNumber LIKE CONCAT('%',#{param, jdbcType=VARCHAR},'%')
+        </where>
+    </select>
+
+
+
+
+
+    <!-- 查询数据库中全部存储设备信息 -->
+    <select id="getAllStorageDevices" resultType="com.onebooming.frastructure.model.StorageDevice">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+    </select>
+
+</mapper>

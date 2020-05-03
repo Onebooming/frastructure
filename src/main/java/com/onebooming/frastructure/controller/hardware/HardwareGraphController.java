@@ -1,17 +1,15 @@
 package com.onebooming.frastructure.controller.hardware;
 
 import com.onebooming.frastructure.service.hardware.HardwareGraphService;
+import com.onebooming.frastructure.utils.APIResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,5 +39,17 @@ public class HardwareGraphController {
             HttpServletRequest request) {
         Map<String, Integer> datas = hardwareGraphService.serverRatioByDataCenter();
         return datas;
+    }
+
+    @ApiOperation("根据服务器名返回与之相连的交换机")
+    @PostMapping(value = "/statistics/server2switch")
+    @ResponseBody
+    public Map<String, List<String>> switchListBySeverName(
+            HttpServletRequest request, @RequestParam(required = true,name = "serverName") String severName) {
+        Map<String, List<String>> relationResult = hardwareGraphService.serverToSwitchs(severName);
+        if(relationResult != null && relationResult.size() > 0){
+            return relationResult;
+        }
+        return null;
     }
 }

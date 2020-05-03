@@ -49,4 +49,20 @@ public class HardwareGraphServiceImpl  implements HardwareGraphService {
 
         return result;
     }
+
+    @Override
+    public Map<String, List<String>> serverToSwitchs(String serverName) {
+        System.out.println("serverName="+serverName);
+        Map<String, List<String>> result = new HashMap<>();
+        List<String> strings = physicServerDao.searchSwitchNameList(serverName);
+        for (String string : strings) {
+            System.out.println(string);
+        }
+        if (strings.size() > 0){
+             result.put(serverName,strings);
+             return result;
+        }else {
+            return null;
+        }
+    }
 }

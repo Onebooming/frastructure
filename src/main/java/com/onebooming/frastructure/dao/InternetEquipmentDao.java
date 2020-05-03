@@ -59,14 +59,14 @@ public interface InternetEquipmentDao {
     //List<InternetEquipment> getInternetEquipmentByCond(InternetEquipmentDao internetEquipmentDao);
 
     /**
-     * 获取服务器总数量
+     * 获取网络设备总数量
      * @return
      */
     Long getInternetEquipmentCount();
 
 
     /**
-     * 搜索服务器-根据名称 或 信息匹配
+     * 搜索网络-根据名称 或 信息匹配
      * @param param
      * @return
      */
